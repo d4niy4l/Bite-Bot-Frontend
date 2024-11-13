@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import WithoutNavbarLayout from './layouts/without-navbar-layout.component'
@@ -17,7 +14,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<NavbarLayout/>} >
-          <Route path="/products" element={<Products />} />
+          <Route path="/" element={<Products />} />
         </Route>
       </Routes>
     </>
