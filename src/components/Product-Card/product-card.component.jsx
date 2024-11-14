@@ -2,9 +2,18 @@ import React from 'react';
 import {motion} from 'framer-motion';
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BsCartPlus } from "react-icons/bs";
+import { useCartActions } from '../../context/cart-context/cart-context.jsx';
 
 const ProductCard = ({ product }) => {
   const colors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-purple-500','bg-yellow-500', 'bg-pink-500'];
+
+  const cartActions = useCartActions();
+
+  const onCartClick = () => {
+    cartActions.addToCart(product);
+    alert('Added to cart');
+    
+  }
 
   return (
     <motion.div 
@@ -12,7 +21,7 @@ const ProductCard = ({ product }) => {
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.5 }}
     whileHover={{ scale: 1.05 }}
-    className="max-w-sm rounded-xl overflow-hidden shadow-lg p-4 bg-black text-white font-sans">
+    className="max-w-xs rounded-xl shadow-lg p-4 bg-black text-white font-inter">
       <div className='flex justify-center'>
         <img className="max-w-[200px]" src={product.image} alt={product.name} />
       </div>
@@ -25,13 +34,14 @@ const ProductCard = ({ product }) => {
             
             <p className='text-[20px]'>{product.price}</p>
         </span>
-        <span className="group hover:bg-blue-500 text-base flex flex-row items-center gap-[5px] bg-white rounded-full p-[5px] transition-all duration-300 cursor-pointer">
+        <span 
+        onClick={onCartClick}
+        className="group hover:bg-blue-500 text-base flex flex-row items-center gap-[5px] bg-white rounded-full p-[5px] transition-all duration-300 cursor-pointer">
             <BsCartPlus className='group-hover:text-white text-[20px] text-black transition-all duration-300' />
-            
         </span>
         </div>
           </div>
-      <div className="px-6 pt-4 pb-2">
+      <div className="px-6 pt-4">
         {product.ingredients.map((ingredient, index) => (
           <span key={index} className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 ${colors[index % colors.length]}`}>
             {ingredient}

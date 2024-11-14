@@ -11,7 +11,7 @@ module.exports = {
         sulphur: ['Sulphur Point', 'sans-serif'],
       },
       colors:{
-        logoColor: '#CAF0F7',
+        logoColor: '#00FFCC',
       }
     },
   },

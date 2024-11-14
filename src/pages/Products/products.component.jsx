@@ -13,52 +13,64 @@ import products from '../../data/products';
 import ProductCard from '../../components/Product-Card/product-card.component';
 
 const Products = () => {
-
+   
   const categories = [
     {
       text: 'All',
-      image: <MdOutlineBorderAll className='text-[30px] text-red-500'  />
+      image: <MdOutlineBorderAll className='text-[30px] text-white'  />
     },
     {
       text: 'Breakfast',
-      image: <MdOutlineBreakfastDining className='text-[30px] text-blue-500' />
+      image: <MdOutlineBreakfastDining className='text-[30px] text-white' />
     },
     { 
       text: 'Lunch',
-      image: <MdOutlineLunchDining className='text-[30px] text-green-500' />
+      image: <MdOutlineLunchDining className='text-[30px] text-white' />
     },
     {
       text: 'Dinner',
-      image: <MdDinnerDining className='text-[30px] text-purple-500' />
+      image: <MdDinnerDining className='text-[30px] text-white' />
     }
   ]
 
   return (
-    <div className='w-full'>
+    <div className='w-full px-[20px]'>
+      <div className='font-inter relative w-full h-[600px] bg-cover bg-top rounded-xl' style={{ backgroundImage: "url('/happy-robot.svg')" }}>
+        <div className='absolute inset-0 bg-black opacity-50'></div>
+        <div className='relative z-10 flex flex-col items-center justify-center h-full'>
+          <h1 className='text-white text-[48px] font-bold'>Welcome to Bite Bot</h1>
+          <p className='text-white text-[24px] mt-[10px]'>Cant Decide? Let Bite Bot Decide for You!</p>
+          <button className='bg-logoColor text-[20px] font-semibold rounded-xl px-[10px] py-[5px] mt-[10px]'>
+            Try it Now
+          </button>
+        </div>
+      </div>
           <h1 className='text-logoColor text-center text-[32px] mt-[20px]'>The Menu</h1>
-          <div className='flex flex-row gap-[50px] justify-center p-[30px] items-center'>
+          <div className='flex flex-row gap-[50px] justify-center my-[20px] items-center mb-[20px]'>
               {
                 categories.map((val, index)=>{
                   return(
-                    <div key = {index} className = 'flex items-center flex-col justify-center'>
+                    <div key = {index} className = 'group hover:bg-logoColor transition-all cursor-pointer duration-300 flex border-2 border-logoColor rounded-xl px-[7.5px] py-[3px] items-center flex-row justify-center gap-[5px]'>
                       {val.image}
-                      <p className='text-logoColor text-[20px]'>{val.text}</p>
+                      <p className={`text-white font-semibold text-[20px]`}>{val.text}</p>
                     </div>
                   )
                 })
               }
           </div>
-          <div className='grid grid-cols-3 gap-[20px] justify-items-center'>
+          <div className='flex px-[20px]'>
+            <div className='w-full grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px] justify-items-center justify-center'>
 
-              {
-                products.map((product, index) => {
-                  return(
-                    <ProductCard product={product} key={index} />
-                  )
-                })
-              }
+                {
+                  products.map((product, index) => {
+                    return(
+                      <ProductCard product={product} key={index} />
+                    )
+                  })
+                }
 
-          </div>
+            </div>
+          </div> 
     </div>
   )
 }
