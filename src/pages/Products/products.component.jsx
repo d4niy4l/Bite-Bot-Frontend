@@ -40,19 +40,19 @@ const Products = () => {
         <div className='relative z-10 flex flex-col items-center justify-center h-full'>
           <h1 className='text-white text-[48px] font-bold'>Welcome to Bite Bot</h1>
           <p className='text-white text-[24px] mt-[10px]'>Cant Decide? Let Bite Bot Decide for You!</p>
-          <button className='bg-logoColor text-[20px] font-semibold rounded-xl px-[10px] py-[5px] mt-[10px]'>
-            Try it Now
+          <button className='bg-logoColor hover:bg-white transition-all duration-300 text-[20px] font-semibold font-mono rounded-xl px-[10px] py-[5px] mt-[10px]'>
+            Try it Out Now
           </button>
         </div>
       </div>
-          <h1 className='text-logoColor text-center text-[32px] mt-[20px]'>The Menu</h1>
-          <div className='flex flex-row gap-[50px] justify-center my-[20px] items-center mb-[20px]'>
+          <h1 className='text-logoColor text-center text-[32px] mt-[20px] font-mono'>The Menu</h1>
+          <div className='flex flex-row gap-[50px] justify-center mt-[20px]  items-center mb-[40px]'>
               {
                 categories.map((val, index)=>{
                   return(
                     <div key = {index} className = 'group hover:bg-logoColor transition-all cursor-pointer duration-300 flex border-2 border-logoColor rounded-xl px-[7.5px] py-[3px] items-center flex-row justify-center gap-[5px]'>
                       {val.image}
-                      <p className={`text-white font-semibold text-[20px]`}>{val.text}</p>
+                      <p className={`font-mono text-white font-semibold text-[20px]`}>{val.text}</p>
                     </div>
                   )
                 })
