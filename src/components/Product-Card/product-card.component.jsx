@@ -13,7 +13,8 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const cartActions = useCartActions();
 
-  const onCartClick = () => {
+  const onCartClick = (e) => {
+    e.stopPropagation();
     cartActions.addToCart(product);
     toast(`${product.name} added to cart!`);    
   }
