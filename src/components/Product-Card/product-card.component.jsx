@@ -13,7 +13,8 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const cartActions = useCartActions();
 
-  const onCartClick = () => {
+  const onCartClick = (e) => {
+    e.stopPropagation();
     cartActions.addToCart(product);
     toast(`${product.name} added to cart!`);    
   }
@@ -25,7 +26,7 @@ const ProductCard = ({ product }) => {
     transition={{ duration: 0.5 }}
     whileHover={{ scale: 1.05 }}
     onClick={() => navigate(`/product/${product.id}`)}
-    className="cursor-pointer max-w-xs rounded-xl shadow-lg p-4 bg-black text-white font-mono">
+    className="cursor-pointer max-w-xs rounded-xl shadow-lg p-4 bg-[#141414] text-white font-mono">
       <div className='flex justify-center'>
         <img className="max-w-[200px]" src={product.image} alt={product.name} />
       </div>

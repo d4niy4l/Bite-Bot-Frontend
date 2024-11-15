@@ -49,12 +49,12 @@ const ProductDetails = () => {
       initial={{ opacity: 0}}
       animate={{ opacity: 1}}
       transition={{ duration: 0.5 }}
-      className='bg-black text-white rounded-xl shadow-lg py-[25px]'>
+      className='bg-[#141414] text-white rounded-xl shadow-lg py-[25px] '>
         <div className='flex flex-col md:flex-row  justify-center'>
           <div className='md:w-1/2 max-w-[600px] flex items-center'>
             <img src={product.image} alt={product.name} className='w-full h-auto rounded-lg' />
           </div>
-          <div className='md:w-1/2 md:mt-0 bg-[#333033] rounded-xl px-[30px] py-[20px]'>
+          <div className='md:w-1/2 md:mt-0 bg-[#1a1a1a] rounded-xl px-[30px] py-[20px]'>
             <h1 className='text-[42px] font-bold font-mono text-logoColor'>{product.name}</h1>
             <span className='text-[25px] my-3 flex flex-row gap-[7px] items-center font-mono'>
               <AiOutlineDollarCircle className='text-[40px] text-green-500' />
