@@ -1,0 +1,12 @@
+.required {
+  position: relative;
+  width: max-content;
+}
+.required::before {
+  content: '*';
+  color: #de6a67;
+  position: absolute;
+  top: 50%;
+  right: -0.25rem;
+  transform: translate(100%, -50%);
+}

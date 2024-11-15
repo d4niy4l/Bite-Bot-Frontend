@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useNavigate } from 'react-router-dom';
+
 //these icons are very self explanatory
 import { MdDinnerDining } from "react-icons/md";
 import { MdOutlineBreakfastDining } from "react-icons/md";
@@ -13,7 +15,9 @@ import products from '../../data/products';
 import ProductCard from '../../components/Product-Card/product-card.component';
 
 const Products = () => {
-   
+  
+  const navigate = useNavigate(); 
+
   const categories = [
     {
       text: 'All',
@@ -38,14 +42,16 @@ const Products = () => {
       <div className='font-inter relative w-full h-[600px] bg-cover bg-top rounded-xl' style={{ backgroundImage: "url('/happy-robot.svg')" }}>
         <div className='absolute inset-0 bg-black opacity-50'></div>
         <div className='relative z-10 flex flex-col items-center justify-center h-full'>
-          <h1 className='text-white text-[48px] font-bold'>Welcome to Bite Bot</h1>
+          <h1 className='text-white text-[48px] font-bold font-sulphur'>Welcome to Bite Bot</h1>
           <p className='text-white text-[24px] mt-[10px]'>Cant Decide? Let Bite Bot Decide for You!</p>
-          <button className='bg-logoColor hover:bg-white transition-all duration-300 text-[20px] font-semibold font-mono rounded-xl px-[10px] py-[5px] mt-[10px]'>
+          <button 
+          onClick={() => navigate('/chat')}
+          className='bg-logoColor hover:bg-white transition-all duration-300 text-[20px] font-semibold font-sulphur rounded-xl px-[10px] py-[5px] mt-[10px]'>
             Try it Out Now
           </button>
         </div>
       </div>
-          <h1 className='text-logoColor text-center text-[32px] mt-[20px] font-mono'>The Menu</h1>
+          <h1 className='text-logoColor text-center text-[32px] mt-[20px] font-sulphur'>The Menu</h1>
           <div className='flex flex-row gap-[50px] justify-center mt-[20px]  items-center mb-[40px]'>
               {
                 categories.map((val, index)=>{

@@ -33,7 +33,7 @@ const Chat = () => {
     <div className='max-w-[1340px] mt-[40px] mx-auto w-full bg-[#141414] flex flex-row text-white md:flex-row items-center md:items-start p-4 rounded-xl shadow-lg'>
       <div className='rounded-xl px-[30px] py-[20px] w-full'>
         <h1 className='text-[32px] text-logoColor font-bold font-inter mb-2'>Can't Decide what to eat?</h1>
-        <h2 className='text-[20px] font-inter font-medium mt-[10px] mb-[20px]'>Tell BiteBot how you feel and let it help deciding for you!</h2>
+        <h2 className='text-[20px] font-inter font-medium mt-[10px] mb-[20px]'>Let BiteBot decide so that You can Focus on Eating!</h2>
         <div className="w-full bg-black rounded-xl shadow-xl p-4 border-2 border-logoColor items-center">
           <div className="h-64 overflow-y-auto p-2">
             {messages.map((msg, index) => (
