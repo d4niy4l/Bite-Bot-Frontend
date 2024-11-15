@@ -59,7 +59,7 @@ const Navbar = ({ state }) => {
       border: 'border-yellow-500',
       hover_background: 'hover:bg-yellow-500',
       onClick : () => {
-        alert('Track Order');
+        navigate('/track-order');
       }
   
     },
@@ -115,7 +115,9 @@ const Navbar = ({ state }) => {
           {
             Right_Links.map((link, index) => {
               return (
-                <button key={index} className={`cursor-pointer group ${link.hover_background}  flex border-2 px-[5px] py-[2.5px] rounded-xl flex-row gap-[5px] ${link.border} transition-all duration-300`}>
+                <button key={index} 
+                onClick={link.onClick}
+                className={`cursor-pointer group ${link.hover_background}  flex border-2 px-[5px] py-[2.5px] rounded-xl flex-row gap-[5px] ${link.border} transition-all duration-300`}>
                   {link.image}
                   <p className={`${link.text_color} font-semibold group-hover:text-white transition-all duration-300`}>{link.text}</p>
                 </button>
