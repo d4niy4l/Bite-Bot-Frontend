@@ -1,34 +1,38 @@
-import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
 //layouts
-import WithoutNavbarLayout from './layouts/without-navbar-layout.component'
-import NavbarLayout from './layouts/navbar-layout.component'
+import WithoutNavbarLayout from './layouts/without-navbar-layout.component';
+import NavbarLayout from './layouts/navbar-layout.component';
 
 //pages
-import Login from './pages/Login/login.page'
-import Products from './pages/Products/products.page'
-import ProductDetails from './pages/Product-Details/product-details.page'
-import Chat from './pages/Chat/chat.page'
-import TrackOrder from './pages/Track-Order/track-order.page'
-
+import Login from './pages/Login/login.page';
+import Products from './pages/Products/products.page';
+import ProductDetails from './pages/Product-Details/product-details.page';
+import Chat from './pages/Chat/chat.page';
+import TrackOrder from './pages/Track-Order/track-order.page';
+import Checkout from './pages/Checkout/checkout.page';
+import FormWizard from './pages/Test/test';
+import Orders from './pages/Orders/order.page';
 function App() {
-
   return (
     <>
       <Routes>
-        <Route element = {<WithoutNavbarLayout/>}>
+        <Route element={<WithoutNavbarLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<FormWizard />} />
         </Route>
-        <Route element={<NavbarLayout/>} >
+        <Route element={<NavbarLayout />}>
           <Route path="/" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />\
           <Route path="/chat" element={<Chat />} />
           <Route path="/track-order" element={<TrackOrder />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} />
         </Route>
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

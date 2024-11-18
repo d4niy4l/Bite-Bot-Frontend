@@ -1,12 +1,16 @@
-import React from 'react';
-import { useCart, useCartActions } from "../../context/cart-context/cart-context";
+import React from "react";
+import {
+  useCart,
+  useCartActions,
+} from "../../context/cart-context/cart-context";
 import { AiOutlineClose } from "react-icons/ai";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const CartModal = () => {
   const { cart, total, showPopup } = useCart();
   const { togglePopup, increaseQuantity, decreaseQuantity } = useCartActions();
-
+  const navigate = useNavigate();
   if (!showPopup) return null;
 
   // Convert cart map to an array and group items by product ID
@@ -14,15 +18,17 @@ const CartModal = () => {
   const handleIncreaseQuantity = (id) => {
     increaseQuantity(id);
   };
-  
+
   const handleDecreaseQuantity = (id) => {
     decreaseQuantity(id);
   };
 
+  const onCheckoutHandler = () => {
+    navigate("/checkout");
+  };
 
   return (
-    <AnimatePresence 
-    >
+    <AnimatePresence>
       {showPopup && (
         <motion.div
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
@@ -43,29 +49,46 @@ const CartModal = () => {
             >
               <AiOutlineClose size={24} />
             </button>
-            <h2 className="text-2xl font-semibold font-mono mb-4 text-logoColor">Your Cart</h2>
+            <h2 className="text-2xl font-semibold font-mono mb-4 text-logoColor">
+              Your Cart
+            </h2>
             {Object.keys(cart).length === 0 ? (
               <p className="text-white">Your cart is empty.</p>
             ) : (
               <div>
                 <ul className="space-y-4 max-h-[300px] overflow-y-auto">
                   {Object.values(cart).map((item) => (
-                    <li key={item.id} className="flex justify-between items-center">
+                    <li
+                      key={item.id}
+                      className="flex justify-between items-center"
+                    >
                       <div className="flex items-center gap-4">
-                        <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover rounded-lg"
+                        />
                         <div>
                           <h3 className="font-semibold">{item.name}</h3>
-                          <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                          <p className="text-gray-600">
+                            ${item.price.toFixed(2)}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
-                        <button 
-                        onClick={() => handleDecreaseQuantity(item.id)}
-                        className="text-logoColor hover:text-logoColor-dark transition-all duration-300">-</button>
+                        <button
+                          onClick={() => handleDecreaseQuantity(item.id)}
+                          className="text-logoColor hover:text-logoColor-dark transition-all duration-300"
+                        >
+                          -
+                        </button>
                         <span>{item.quantity}</span>
-                        <button 
-                        onClick={() => handleIncreaseQuantity(item.id)}
-                        className="text-logoColor hover:text-logoColor-dark transition-all duration-300">+</button>
+                        <button
+                          onClick={() => handleIncreaseQuantity(item.id)}
+                          className="text-logoColor hover:text-logoColor-dark transition-all duration-300"
+                        >
+                          +
+                        </button>
                       </div>
                     </li>
                   ))}
@@ -73,9 +96,14 @@ const CartModal = () => {
                 <div className="mt-6 border-t pt-4">
                   <div className="flex justify-between items-center font-mono">
                     <h3 className="text-[20px] font-semibold">Total</h3>
-                    <p className="text-[20px] font-semibold">${total.toFixed(2)}</p>
+                    <p className="text-[20px] font-semibold">
+                      ${total.toFixed(2)}
+                    </p>
                   </div>
-                  <button className="w-full bg-logoColor hover:bg-white hover:text-black text-white py-2 mt-4 rounded-lg hover:bg-logoColor-dark transition-all duration-300">
+                  <button
+                    onClick={onCheckoutHandler}
+                    className="w-full bg-logoColor hover:bg-white hover:text-black text-white py-2 mt-4 rounded-lg hover:bg-logoColor-dark transition-all duration-300"
+                  >
                     Proceed to Checkout
                   </button>
                 </div>
