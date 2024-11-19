@@ -102,7 +102,7 @@ const CartModal = () => {
                   </div>
                   <button
                     onClick={onCheckoutHandler}
-                    className="w-full bg-logoColor hover:bg-white hover:text-black text-white py-2 mt-4 rounded-lg hover:bg-logoColor-dark transition-all duration-300"
+                    className="w-full hover:bg-logoColor bg-inherit text-white py-2 mt-4 rounded-lg border-2 border-logoColor hover:bg-logoColor-dark transition-all duration-300"
                   >
                     Proceed to Checkout
                   </button>

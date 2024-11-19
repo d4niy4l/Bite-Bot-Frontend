@@ -5,6 +5,7 @@ import {
 import { FaRegCreditCard, FaShoppingCart } from 'react-icons/fa';
 import { useState } from 'react';
 import Select from '../../components/Input-Select/input-select.component';
+import { islamabadSectors } from '../../data/isb-sectors';
 
 const Checkout = () => {
   const { cart: cartItems } = useCart();
@@ -37,6 +38,7 @@ const Checkout = () => {
   ];
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState('CASH');
+  const [sector, setSector] = useState('');
 
   const onNextStepHandler = () => {
     if (currentStep < steps.length) {
@@ -156,9 +158,19 @@ const Checkout = () => {
             {currentStep == 2 && (
               <div className="mt-6 flex gap-[30px] justify-between px-[30px] flex-row">
                 <div className='flex flex-col w-full'>
-               
+                <div className='my-[20px]'>
+                    <Select
+                        lblText={'Select Sector'}
+                        name={'sector'}
+                        options={
+                          islamabadSectors
+                        }
+                      
+                        onChange={(val)=>setSector(val)}
+                      />
+                  </div>
                   <div className="flex flex-col gap-1">
-                    <label className="text-logoColor text-[18px] mb-[5px]">Address</label>
+                    <label className="text-logoColor text-[18px] mb-[5px]">Full Address</label>
                     <textarea
                       
                       type="text"
