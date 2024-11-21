@@ -24,6 +24,7 @@ const CartModal = () => {
   };
 
   const onCheckoutHandler = () => {
+    togglePopup();
     navigate("/checkout");
   };
 
