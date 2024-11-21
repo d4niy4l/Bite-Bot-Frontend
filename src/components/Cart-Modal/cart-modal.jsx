@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   useCart,
   useCartActions,
-} from "../../context/cart-context/cart-context";
-import { AiOutlineClose } from "react-icons/ai";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+} from '../../context/cart-context/cart-context';
+import { AiOutlineClose } from 'react-icons/ai';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const CartModal = () => {
   const { cart, total, showPopup } = useCart();
@@ -25,9 +25,9 @@ const CartModal = () => {
 
   const onCheckoutHandler = () => {
     togglePopup();
-    navigate("/checkout");
+    navigate('/checkout');
   };
-
+  console.log(Object.values(cart));
   return (
     <AnimatePresence>
       {showPopup && (
@@ -65,7 +65,7 @@ const CartModal = () => {
                     >
                       <div className="flex items-center gap-4">
                         <img
-                          src={item.image}
+                          src={item.imageLink}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded-lg"
                         />

@@ -1,4 +1,3 @@
-
 //context
 import {
   useCart,
@@ -6,7 +5,12 @@ import {
 } from '../../context/cart-context/cart-context';
 
 //icons
-import { FaCheckCircle, FaMap, FaRegCreditCard, FaShoppingCart } from 'react-icons/fa';
+import {
+  FaCheckCircle,
+  FaMap,
+  FaRegCreditCard,
+  FaShoppingCart,
+} from 'react-icons/fa';
 
 //react imports
 import { useState, useRef } from 'react';
@@ -18,7 +22,6 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 
 //data
 import { islamabadSectors } from '../../data/isb-sectors';
-
 
 const Checkout = () => {
   const { cart: cartItems } = useCart();
@@ -38,13 +41,12 @@ const Checkout = () => {
     decreaseQuantity(id);
   };
 
-
   const inputRefs = useRef([]);
 
   const handleOTPChange = (e, index) => {
     const value = e.target.value;
     const match = /^[0-9]$/;
-    
+
     if (/^\d$/.test(value)) {
       const newOTP = [...OTP];
       newOTP[index] = value;
@@ -57,8 +59,8 @@ const Checkout = () => {
 
   //cordinates for islamabad
   const isbBounds = [
-    [33.752439,73.104726], // Northeast coordinates of Islamabad
-    [33.598441,72.960070], // Southwest coordinates of Islamabad
+    [33.752439, 73.104726], // Northeast coordinates of Islamabad
+    [33.598441, 72.96007], // Southwest coordinates of Islamabad
   ];
 
   const steps = [
@@ -120,7 +122,10 @@ const Checkout = () => {
             {steps.map((item, index) => {
               const IconComponent = item.icon;
               return (
-                <div className="flex flex-col items-center relative flex-1 ">
+                <div
+                  key={index}
+                  className="flex flex-col items-center relative flex-1 "
+                >
                   <div
                     className={`p-8 rounded-full relative z-[2] w-max ${
                       index + 1 <= currentStep
@@ -169,7 +174,7 @@ const Checkout = () => {
                     <div className="flex items-center gap-4">
                       <div>
                         <img
-                          src={cartItem.image}
+                          src={cartItem.imageLink}
                           alt={cartItem.name}
                           className="w-[120px] h-[120px] object-cover rounded-lg"
                         />
@@ -240,72 +245,78 @@ const Checkout = () => {
             )}
             {currentStep == 3 && (
               <div className="mt-6 flex gap-[30px] justify-between px-[30px] flex-row">
-                <div className='mt-[20px] w-1/2'>
+                <div className="mt-[20px] w-1/2">
                   <Select
-                      lblText={'Payment Method'}
-                      name={'paymentMethod'}
-                      options={
-                        ['Pay By Cash on Delivery', 'Pay by Credit Card']
-                      }
-                      defaultSelected={paymentMethod}
-                      onChange={(val)=>{
-                          setPaymentMethod(val);
-                      }}
-                    />
+                    lblText={'Payment Method'}
+                    name={'paymentMethod'}
+                    options={['Pay By Cash on Delivery', 'Pay by Credit Card']}
+                    defaultSelected={paymentMethod}
+                    onChange={(val) => {
+                      setPaymentMethod(val);
+                    }}
+                  />
                 </div>
                 {paymentMethod == 'Pay by Credit Card' && (
-                <>
-                <div className="w-1/2 flex flex-col items-center justify-center mt-8 max-h-[200px]">
-                  <div className="bg-[#1a1a1a] text-white rounded-xl shadow-lg p-6 max-w-lg">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-col gap-2">
-                        <label className="text-green-500 text-xl">Name on Card</label>
-                        <input
-                          type="text"
-                          className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-green-500 text-xl">Card Number</label>
-                        <div className="group flex flex-row bg-transparent text-green-500 border-transparent focus-within:border-green-500 border-[2px] focus:outline-none rounded-xl pr-3">
-                          <input
-                            type="text"
-                            className="flex-1 p-[6px] bg-transparent text-green-500 border-transparent focus:outline-none rounded-xl"
-                          />
-                          <img
-                            className="ml-auto"
-                            src="/icons/icon-mastercard.png"
-                            width={36}
-                            height={36}
-                            alt={'mastercardIcon'}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex gap-4">
-                        <div className="flex flex-col gap-2 flex-1">
-                          <label className="text-green-500 text-xl">Expiration Date</label>
-                          <input
-                            type="text"
-                            className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2 flex-1">
-                          <label className="text-green-500 text-xl">CVC</label>
-                          <input
-                            type="password"
-                            className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
-                          />
+                  <>
+                    <div className="w-1/2 flex flex-col items-center justify-center mt-8 max-h-[200px]">
+                      <div className="bg-[#1a1a1a] text-white rounded-xl shadow-lg p-6 max-w-lg">
+                        <div className="flex flex-col gap-4">
+                          <div className="flex flex-col gap-2">
+                            <label className="text-green-500 text-xl">
+                              Name on Card
+                            </label>
+                            <input
+                              type="text"
+                              className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <label className="text-green-500 text-xl">
+                              Card Number
+                            </label>
+                            <div className="group flex flex-row bg-transparent text-green-500 border-transparent focus-within:border-green-500 border-[2px] focus:outline-none rounded-xl pr-3">
+                              <input
+                                type="text"
+                                className="flex-1 p-[6px] bg-transparent text-green-500 border-transparent focus:outline-none rounded-xl"
+                              />
+                              <img
+                                className="ml-auto"
+                                src="/icons/icon-mastercard.png"
+                                width={36}
+                                height={36}
+                                alt={'mastercardIcon'}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex gap-4">
+                            <div className="flex flex-col gap-2 flex-1">
+                              <label className="text-green-500 text-xl">
+                                Expiration Date
+                              </label>
+                              <input
+                                type="text"
+                                className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
+                              />
+                            </div>
+                            <div className="flex flex-col gap-2 flex-1">
+                              <label className="text-green-500 text-xl">
+                                CVC
+                              </label>
+                              <input
+                                type="password"
+                                className="p-[6px] bg-transparent text-green-500 border-transparent focus:border-green-500 border-[2px] focus:outline-none rounded-xl"
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </>
+                  </>
                 )}
                 {paymentMethod == 'Pay By Cash on Delivery' && (
-                  <div className='w-1/2 flex flex-col gap-[10px] justify-center items-center'>
+                  <div className="w-1/2 flex flex-col gap-[10px] justify-center items-center">
                     <img
-                      src = '/delivery-robot.svg'
+                      src="/delivery-robot.svg"
                       width={320}
                       alt={'deliveryRobot'}
                     />
@@ -316,17 +327,53 @@ const Checkout = () => {
                 )}
               </div>
             )}
+            {currentStep == 3 && (
+              <div className="flex flex-row gap-[15px]">
+                <div className="text-white rounded-xl shadow-lg p-6 w-full max-w-lg">
+                  <MapContainer
+                    center={[51.505, -0.09]}
+                    zoom={13}
+                    style={{ height: '300px', width: '100%' }}
+                    maxBounds={isbBounds}
+                    maxBoundsViscosity={1.0}
+                  >
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    />
+                    <LocationMarker setCoordinates={setCoordinates} />
+                  </MapContainer>
+                </div>
+                <div className="flex flex-col w-full pb-[20px]">
+                  <Select
+                    lblText={'Select Sector'}
+                    name={'sector'}
+                    options={islamabadSectors}
+                    onChange={(val) => setSector(val)}
+                  />
+                  <label className="text-logoColor text-[18px] mb-[5px] mt-[20px]">
+                    Full Address
+                  </label>
+                  <textarea
+                    type="text"
+                    className="h-full p-[6px] resize-none font-inter font-medium  bg-[#333333]  text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-xl"
+                  />
+                </div>
+              </div>
+            )}
              
             {currentStep == 4 && (
               <div className="mt-6 flex gap-3 font-inter flex-col text-white items-center w-full">
                 <p className="text-lg font-semibold">
                   We have sent a confirmation email at john.doe@gmail.com
                 </p>
-                <p className="text-xl font-semibold mt-[20px] text-logoColor">Enter the OTP to confirm your order.</p>
+                <p className="text-xl font-semibold mt-[20px] text-logoColor">
+                  Enter the OTP to confirm your order.
+                </p>
                 <div className="flex flex-row justify-between max-w-sm w-full">
                   {OTP.map((digit, index) => {
                     return (
-                      <div className="">
+                      <div key={index} className="">
                         <input
                           type="text"
                           maxLength={1}

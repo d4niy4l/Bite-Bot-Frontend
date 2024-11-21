@@ -12,7 +12,6 @@ import ProductDetails from './pages/Product-Details/product-details.page';
 import Chat from './pages/Chat/chat.page';
 import TrackOrder from './pages/Track-Order/track-order.page';
 import Checkout from './pages/Checkout/checkout.page';
-import FormWizard from './pages/Test/test';
 import Orders from './pages/Orders/order.page';
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
       <Routes>
         <Route element={<WithoutNavbarLayout />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/test" element={<FormWizard />} />
         </Route>
         <Route element={<NavbarLayout />}>
           <Route path="/" element={<Products />} />
