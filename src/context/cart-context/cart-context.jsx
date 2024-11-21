@@ -11,6 +11,7 @@ const initial = {
 const CartContext = createContext(initial);
 
 const cartReducer = (state, action) => {
+  const { type, payload } = action;
   switch (action.type) {
     case 'ADD_TO_CART': {
       const { id, name, price, imageLink } = action.payload;
@@ -131,9 +132,9 @@ const CartProvider = ({ children }) => {
 const useCart = () => {
   const state = useContext(CartContext);
 
-  const { cart, total, totalItems, showPopup } = state;
+  const { cart, total, totalItems, showPopup, paymentMethod } = state;
 
-  return { cart, total, totalItems, showPopup };
+  return { cart, total, totalItems, showPopup, paymentMethod };
 };
 
 const useCartActions = () => {
@@ -153,7 +154,7 @@ const useCartActions = () => {
   const togglePopup = () => dispatch({ type: 'TOGGLE_POPUP' });
 
   const setPaymentMethod = (paymentMethod) => {
-    dispatch(createAction({ type: 'SET_PAYMENT', payload: '' }));
+    dispatch({ type: 'SET_PAYMENT_METHOD', payload: paymentMethod });
   };
   return {
     addToCart,
@@ -163,6 +164,7 @@ const useCartActions = () => {
     clearCart,
     togglePopup,
     addManyToCart,
+    setPaymentMethod,
   };
 };
 

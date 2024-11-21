@@ -1,7 +1,6 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-
 import styles from './input-select.module.css';
 const Select = ({
   onChange,
@@ -11,6 +10,7 @@ const Select = ({
   defaultSelected,
   openOnTop,
   required,
+  values,
 }) => {
   const nullFunc = useCallback(() => {}, []);
   if (lblText == undefined) lblText = 'Label Text Here';
@@ -31,7 +31,12 @@ const Select = ({
   }, [defaultSelected]);
 
   useEffect(() => {
-    onChange(selectedOption);
+    if (values != undefined) {
+      const index = options.findIndex((item) => item == selectedOption);
+      onChange(values[index]);
+    } else {
+      onChange(selectedOption);
+    }
   }, [selectedOption]);
 
   const toggleSelectModal = () => {
@@ -65,7 +70,11 @@ const Select = ({
   };
   return (
     <div className="flex-1 flex flex-col gap-3 relative">
-      <div className={`${required == true ? styles.required : ''} text-logoColor font-inter text-[16px]`}>
+      <div
+        className={`${
+          required == true ? styles.required : ''
+        } text-logoColor font-inter text-[16px]`}
+      >
         {lblText}
       </div>
       <div

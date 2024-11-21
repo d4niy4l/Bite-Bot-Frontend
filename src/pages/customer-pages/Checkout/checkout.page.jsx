@@ -24,14 +24,11 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { islamabadSectors } from '../../../data/isb-sectors';
 
 const Checkout = () => {
-  const { cart: cartItems } = useCart();
-  const { togglePopup, increaseQuantity, decreaseQuantity } = useCartActions();
-  
-  const currentCords = [33.652439,73.104726]
+  const { cart: cartItems, paymentMethod } = useCart();
+  const { togglePopup, increaseQuantity, decreaseQuantity, setPaymentMethod } =
+    useCartActions();
 
-
-
-
+  const currentCords = [33.652439, 73.104726];
 
   const handleIncreaseQuantity = (id) => {
     increaseQuantity(id);
@@ -85,8 +82,8 @@ const Checkout = () => {
       icon: FaRegCreditCard,
     },
   ];
+
   const [currentStep, setCurrentStep] = useState(1);
-  const [paymentMethod, setPaymentMethod] = useState('Pay By Cash on Delivery');
   const [sector, setSector] = useState('');
   const [coordinates, setCoordinates] = useState(null);
 
@@ -108,7 +105,7 @@ const Checkout = () => {
   };
 
   const [OTP, setOTP] = useState([-1, -1, -1, -1, -1, -1]);
-
+  console.log('paymentMethod: ' + paymentMethod);
   return (
     <div className="font-inter max-w-[1100px] h-[600px] flex flex-col mx-auto mt-[40px] p-4 bg-[#141414] rounded-xl px-[30px] py-[20px] mb-[30px]">
       {Object.values(cartItems).length == 0 && (
@@ -208,40 +205,46 @@ const Checkout = () => {
                   </div>
                 );
               })}
-              {currentStep == 2 && (
-              <div className='flex flex-row gap-[15px]'>
+            {currentStep == 2 && (
+              <div className="flex flex-row gap-[15px]">
                 <div className="text-white rounded-xl shadow-lg p-6 w-full max-w-lg">
-                  <MapContainer 
-                  center={[51.505, -0.09]} 
-                  zoom={13} 
-                  style={{ height: '300px', width: '100%', borderRadius: '12px' }}
-                  maxBounds={isbBounds}
-                  maxBoundsViscosity={1.0}
+                  <MapContainer
+                    center={[51.505, -0.09]}
+                    zoom={13}
+                    style={{
+                      height: '300px',
+                      width: '100%',
+                      borderRadius: '12px',
+                    }}
+                    maxBounds={isbBounds}
+                    maxBoundsViscosity={1.0}
                   >
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      />
-                    <LocationMarker setCoordinates={setCoordinates} initialPosition={currentCords} />
+                    />
+                    <LocationMarker
+                      setCoordinates={setCoordinates}
+                      initialPosition={currentCords}
+                    />
                   </MapContainer>
                 </div>
-                  <div className='flex flex-col w-full pb-[20px]'>
-                    <Select
-                        lblText={'Select Sector'}
-                        name={'sector'}
-                        options={
-                          islamabadSectors
-                        }
-                      
-                        onChange={(val)=>setSector(val)}
-                      />
-                    <label className="text-logoColor text-[18px] mb-[5px] mt-[20px]">Full Address</label>
-                    <textarea
-                      type="text"
-                      className="h-full p-[6px] resize-none font-inter font-medium  bg-[#333333]  text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-xl"
-                    />
-                  </div>
-            </div>
+                <div className="flex flex-col w-full pb-[20px]">
+                  <Select
+                    lblText={'Select Sector'}
+                    name={'sector'}
+                    options={islamabadSectors}
+                    onChange={(val) => setSector(val)}
+                  />
+                  <label className="text-logoColor text-[18px] mb-[5px] mt-[20px]">
+                    Full Address
+                  </label>
+                  <textarea
+                    type="text"
+                    className="h-full p-[6px] resize-none font-inter font-medium  bg-[#333333]  text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-xl"
+                  />
+                </div>
+              </div>
             )}
             {currentStep == 3 && (
               <div className="mt-6 flex gap-[30px] justify-between px-[30px] flex-row">
@@ -250,13 +253,14 @@ const Checkout = () => {
                     lblText={'Payment Method'}
                     name={'paymentMethod'}
                     options={['Pay By Cash on Delivery', 'Pay by Credit Card']}
-                    defaultSelected={paymentMethod}
+                    values={['CASH', 'CARD']}
+                    // defaultSelected={paymentMethod}
                     onChange={(val) => {
                       setPaymentMethod(val);
                     }}
                   />
                 </div>
-                {paymentMethod == 'Pay by Credit Card' && (
+                {paymentMethod == 'CARD' && (
                   <>
                     <div className="w-1/2 flex flex-col items-center justify-center mt-8 max-h-[200px]">
                       <div className="bg-[#1a1a1a] text-white rounded-xl shadow-lg p-6 max-w-lg">
@@ -313,7 +317,7 @@ const Checkout = () => {
                     </div>
                   </>
                 )}
-                {paymentMethod == 'Pay By Cash on Delivery' && (
+                {paymentMethod == 'CASH' && (
                   <div className="w-1/2 flex flex-col gap-[10px] justify-center items-center">
                     <img
                       src="/delivery-robot.svg"
@@ -361,7 +365,6 @@ const Checkout = () => {
                 </div>
               </div>
             )}
-             
             {currentStep == 4 && (
               <div className="mt-6 flex gap-3 font-inter flex-col text-white items-center w-full">
                 <p className="text-lg font-semibold">
