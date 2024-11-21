@@ -85,7 +85,7 @@ const TrackOrder = () => {
           <div className={`w-[70px] h-[70px] flex items-center justify-center rounded-full ${getProgressClass(4)}`}>
             <span className="text-white">
               <TiHomeOutline className='text-[36px]' />
-            </span>npm 
+            </span>
           </div>
           <p className="text-center font-inter mt-2 text-white">Delivered</p>
         </div>

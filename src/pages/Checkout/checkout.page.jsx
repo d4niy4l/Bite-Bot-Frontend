@@ -23,6 +23,12 @@ import { islamabadSectors } from '../../data/isb-sectors';
 const Checkout = () => {
   const { cart: cartItems } = useCart();
   const { togglePopup, increaseQuantity, decreaseQuantity } = useCartActions();
+  
+  const currentCords = [33.652439,73.104726]
+
+
+
+
 
   const handleIncreaseQuantity = (id) => {
     increaseQuantity(id);
@@ -61,12 +67,12 @@ const Checkout = () => {
       icon: FaShoppingCart,
     },
     {
-      title: 'Select Payment Method',
-      icon: FaRegCreditCard,
-    },
-    {
       title: 'Enter Delivery Details',
       icon: FaMap,
+    },
+    {
+      title: 'Select Payment Method',
+      icon: FaRegCreditCard,
     },
     {
       title: 'Confirm Order',
@@ -197,7 +203,42 @@ const Checkout = () => {
                   </div>
                 );
               })}
-            {currentStep == 2 && (
+              {currentStep == 2 && (
+              <div className='flex flex-row gap-[15px]'>
+                <div className="text-white rounded-xl shadow-lg p-6 w-full max-w-lg">
+                  <MapContainer 
+                  center={[51.505, -0.09]} 
+                  zoom={13} 
+                  style={{ height: '300px', width: '100%', borderRadius: '12px' }}
+                  maxBounds={isbBounds}
+                  maxBoundsViscosity={1.0}
+                  >
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      />
+                    <LocationMarker setCoordinates={setCoordinates} initialPosition={currentCords} />
+                  </MapContainer>
+                </div>
+                  <div className='flex flex-col w-full pb-[20px]'>
+                    <Select
+                        lblText={'Select Sector'}
+                        name={'sector'}
+                        options={
+                          islamabadSectors
+                        }
+                      
+                        onChange={(val)=>setSector(val)}
+                      />
+                    <label className="text-logoColor text-[18px] mb-[5px] mt-[20px]">Full Address</label>
+                    <textarea
+                      type="text"
+                      className="h-full p-[6px] resize-none font-inter font-medium  bg-[#333333]  text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-xl"
+                    />
+                  </div>
+            </div>
+            )}
+            {currentStep == 3 && (
               <div className="mt-6 flex gap-[30px] justify-between px-[30px] flex-row">
                 <div className='mt-[20px] w-1/2'>
                   <Select
@@ -275,41 +316,7 @@ const Checkout = () => {
                 )}
               </div>
             )}
-             {currentStep == 3 && (
-              <div className='flex flex-row gap-[15px]'>
-                <div className="text-white rounded-xl shadow-lg p-6 w-full max-w-lg">
-                  <MapContainer 
-                  center={[51.505, -0.09]} 
-                  zoom={13} 
-                  style={{ height: '300px', width: '100%' }}
-                  maxBounds={isbBounds}
-                  maxBoundsViscosity={1.0}
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      />
-                    <LocationMarker setCoordinates={setCoordinates} />
-                  </MapContainer>
-                </div>
-                  <div className='flex flex-col w-full pb-[20px]'>
-                    <Select
-                        lblText={'Select Sector'}
-                        name={'sector'}
-                        options={
-                          islamabadSectors
-                        }
-                      
-                        onChange={(val)=>setSector(val)}
-                      />
-                    <label className="text-logoColor text-[18px] mb-[5px] mt-[20px]">Full Address</label>
-                    <textarea
-                      type="text"
-                      className="h-full p-[6px] resize-none font-inter font-medium  bg-[#333333]  text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-xl"
-                    />
-                  </div>
-            </div>
-            )}
+             
             {currentStep == 4 && (
               <div className="mt-6 flex gap-3 font-inter flex-col text-white items-center w-full">
                 <p className="text-lg font-semibold">
