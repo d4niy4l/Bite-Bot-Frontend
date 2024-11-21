@@ -4,7 +4,11 @@
     price: 9.99,
     category: 'Food',
     availability: true,
-    ingredients: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    ingredients: [
+      { id: 1, name: 'Tomato' },
+      { id: 2, name: 'Mozzarella' },
+      { id: 3, name: 'Basil' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -15,7 +19,12 @@
     price: 12.49,
     category: 'Food',
     availability: true,
-    ingredients: [{ id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }],
+    ingredients: [
+      { id: 4, name: 'Plant-based Patty' },
+      { id: 5, name: 'Lettuce' },
+      { id: 6, name: 'Tomato' },
+      { id: 7, name: 'Vegan Cheese' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -26,7 +35,12 @@
     price: 7.99,
     category: 'Salad',
     availability: true,
-    ingredients: [{ id: 8 }, { id: 9 }, { id: 10 }, { id: 11 }],
+    ingredients: [
+      { id: 8, name: 'Romaine Lettuce' },
+      { id: 9, name: 'Croutons' },
+      { id: 10, name: 'Parmesan' },
+      { id: 11, name: 'Caesar Dressing' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -37,7 +51,13 @@
     price: 10.99,
     category: 'Food',
     availability: false,
-    ingredients: [{ id: 12 }, { id: 13 }, { id: 14 }, { id: 15 }, { id: 16 }],
+    ingredients: [
+      { id: 12, name: 'Spaghetti' },
+      { id: 13, name: 'Pancetta' },
+      { id: 14, name: 'Egg' },
+      { id: 10, name: 'Parmesan' },
+      { id: 15, name: 'Pepper' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -48,7 +68,12 @@
     price: 8.49,
     category: 'Wraps',
     availability: true,
-    ingredients: [{ id: 17 }, { id: 18 }, { id: 19 }, { id: 20 }],
+    ingredients: [
+      { id: 16, name: 'Chicken Tikka' },
+      { id: 5, name: 'Cucumber' },
+      { id: 5, name: 'Lettuce' },
+      { id: 17, name: 'Yogurt Sauce' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -59,7 +84,12 @@
     price: 6.99,
     category: 'Dessert',
     availability: true,
-    ingredients: [{ id: 21 }, { id: 22 }, { id: 23 }, { id: 24 }],
+    ingredients: [
+      { id: 18, name: 'Banana' },
+      { id: 19, name: 'Blueberries' },
+      { id: 20, name: 'Granola' },
+      { id: 21, name: 'Coconut Flakes' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -70,7 +100,12 @@
     price: 5.49,
     category: 'Breakfast',
     availability: false,
-    ingredients: [{ id: 25 }, { id: 26 }, { id: 27 }, { id: 28 }],
+    ingredients: [
+      { id: 22, name: 'Sourdough Bread' },
+      { id: 23, name: 'Avocado' },
+      { id: 24, name: 'Cherry Tomatoes' },
+      { id: 25, name: 'Lemon' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -82,13 +117,13 @@
     category: 'Food',
     availability: true,
     ingredients: [
-      { id: 29 },
-      { id: 30 },
-      { id: 31 },
-      { id: 32 },
-      { id: 33 },
-      { id: 34 },
-      { id: 35 },
+      { id: 26, name: 'Pepperoni' },
+      { id: 27, name: 'Tomato Sauce' },
+      { id: 2, name: 'Mozzarella' },
+      { id: 28, name: 'Chicken' },
+      { id: 29, name: 'Bell Peppers' },
+      { id: 30, name: 'Thyme' },
+      { id: 14, name: 'Egg' },
     ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
@@ -100,7 +135,13 @@
     price: 4.99,
     category: 'Dessert',
     availability: true,
-    ingredients: [{ id: 36 }, { id: 37 }, { id: 38 }, { id: 39 }, { id: 40 }],
+    ingredients: [
+      { id: 31, name: 'Flour' },
+      { id: 32, name: 'Cocoa Powder' },
+      { id: 33, name: 'Sugar' },
+      { id: 34, name: 'Butter' },
+      { id: 14, name: 'Eggs' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:
@@ -111,7 +152,11 @@
     price: 3.99,
     category: 'Snacks',
     availability: true,
-    ingredients: [{ id: 41 }, { id: 42 }, { id: 43 }],
+    ingredients: [
+      { id: 35, name: 'Bread' },
+      { id: 36, name: 'Cheddar Cheese' },
+      { id: 37, name: 'Butter' },
+    ],
     imageLink:
       'https://raw.githubusercontent.com/rohhan36/food-app-assests/main/assets/desert1.png',
     description:

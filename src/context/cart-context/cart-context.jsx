@@ -12,14 +12,14 @@ const CartContext = createContext(initial);
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_CART': {
-      const { id, name, price, image } = action.payload;
+      const { id, name, price, imageLink } = action.payload;
       // console.log(action.payload);
 
       const existingItem = state.cart[id];
       const quantity = existingItem ? existingItem.quantity + 1 : 1;
       const cart = {
         ...state.cart,
-        [id]: { id, name, price, image, quantity },
+        [id]: { id, name, price, imageLink, quantity },
       };
       // console.log(cart);
 

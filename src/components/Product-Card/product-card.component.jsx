@@ -1,14 +1,21 @@
 import React from 'react';
-import {motion} from 'framer-motion';
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { BsCartPlus } from "react-icons/bs";
+import { motion } from 'framer-motion';
+import { AiOutlineDollarCircle } from 'react-icons/ai';
+import { BsCartPlus } from 'react-icons/bs';
 import { useCartActions } from '../../context/cart-context/cart-context.jsx';
 import { toast } from 'react-toastify';
 
 import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-  const colors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-purple-500','bg-yellow-500', 'bg-pink-500'];
+  const colors = [
+    'bg-red-500',
+    'bg-blue-500',
+    'bg-green-500',
+    'bg-purple-500',
+    'bg-yellow-500',
+    'bg-pink-500',
+  ];
 
   const navigate = useNavigate();
   const cartActions = useCartActions();
@@ -16,53 +23,64 @@ const ProductCard = ({ product }) => {
   const onCartClick = (e) => {
     e.stopPropagation();
     cartActions.addToCart(product);
-    toast(`${product.name} added to cart!`);    
-  }
+    toast(`${product.name} added to cart!`);
+  };
 
   return (
-    <motion.div 
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-    whileHover={{ scale: 1.05 }}
-    onClick={() => navigate(`/product/${product.id}`)}
-    className="cursor-pointer max-w-xs rounded-xl shadow-lg p-4 bg-[#141414] text-white font-mono">
-      <div className='flex justify-center'>
-        <img className="max-w-[200px]" src={product.image} alt={product.name} />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ scale: 1.05 }}
+      onClick={() => navigate(`/product/${product.id}`)}
+      className="cursor-pointer max-w-xs rounded-xl shadow-lg p-4 bg-[#141414] text-white font-mono"
+    >
+      <div className="flex justify-center">
+        <img
+          className="max-w-[200px]"
+          src={product.imageLink}
+          alt={product.name}
+        />
       </div>
       <div className="px-6 py-4 border-t-2 border-logoColor">
         <div className="font-bold text-xl mb-2">{product.name}</div>
-        <div className='flex flex-row justify-between'>
+        <div className="flex flex-row justify-between">
+          <span className="text-base flex flex-row items-center gap-[5px]">
+            <AiOutlineDollarCircle className="text-[30px] text-green-500" />
 
-        <span className="text-base flex flex-row items-center gap-[5px]">
-            <AiOutlineDollarCircle className='text-[30px] text-green-500' />
-            
-            <p className='text-[20px]'>{product.price}</p>
-        </span>
-        <span 
-        onClick={onCartClick}
-        className="group hover:bg-blue-500 text-base flex flex-row items-center gap-[5px] bg-white rounded-full p-[5px] transition-all duration-300 cursor-pointer">
-            <BsCartPlus className='group-hover:text-white text-[20px] text-black transition-all duration-300' />
-        </span>
+            <p className="text-[20px]">{product.price}</p>
+          </span>
+          <span
+            onClick={onCartClick}
+            className="group hover:bg-blue-500 text-base flex flex-row items-center gap-[5px] bg-white rounded-full p-[5px] transition-all duration-300 cursor-pointer"
+          >
+            <BsCartPlus className="group-hover:text-white text-[20px] text-black transition-all duration-300" />
+          </span>
         </div>
-          </div>
+      </div>
       <div className="px-6 pt-4 ">
         {product.ingredients.map((ingredient, index) => {
-          if(index < 6){
-            return(
-              <span key={index} className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 ${colors[index % colors.length]}`}>
-                {ingredient}
+          if (index < 6) {
+            return (
+              <span
+                key={ingredient.id}
+                className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 ${
+                  colors[index % colors.length]
+                }`}
+              >
+                {ingredient.name}
               </span>
-            )
+            );
           }
         })}
-        {
-          product.ingredients.length > 6 ? <span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 bg-logoColor`}>
+        {product.ingredients.length > 6 ? (
+          <span
+            className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 bg-logoColor`}
+          >
             +{product.ingredients.length - 6} more
-          </span> : null 
-        }
+          </span>
+        ) : null}
       </div>
-      
     </motion.div>
   );
 };
