@@ -25,7 +25,7 @@ const Products = () => {
     const fetchProducts = async () => {
       setLoading(true);
       const response = await apiClient.get(ENDPOINTS.FETCH_ALL_PRODUCTS);
-      setProducts(response);
+      setProducts(response.data);
       setLoading(false);
     };
     fetchProducts();

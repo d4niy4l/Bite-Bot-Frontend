@@ -1,8 +1,18 @@
-import {useState} from 'react'
+import { nav } from 'framer-motion/client';
+import {useContext, useState} from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { useNavigate } from 'react-router-dom';
+import { EmailVerificationContext } from '../../context/verification-context/verification-context';
+import { setAccessToken } from '../../utils/cookies/cookie';
+import { toast } from 'react-toastify';
+import { ENDPOINTS } from '../../utils/api/endpoints';
+import apiClient from '../../lib/axios.lib';
 
 const Login = () => {
+  const {emailToVerify, setEmailToVerify} = useContext(EmailVerificationContext);
+  const navigate = useNavigate();
+
   const [isSignUp, setIsSignUp] = useState(false);
   
   const [email, setEmail] = useState('');
@@ -13,11 +23,49 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      password
+    }
+    try{
+      const response = await apiClient.post(ENDPOINTS.LOGIN, data);
+      
+      if(response.status === 200){
+        setAccessToken(response.data.data);
+        
+        navigate('/');
+      }
+      else{
+        toast.error(response.data.message);
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
 
   }
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      password,
+      name: firstName + ' ' + lastName,
+      phone: phoneNumber
+    }
+
+    try{
+      const response = await apiClient.post(ENDPOINTS.SIGN_UP, data);
+     if(response.status === 200){
+        setEmailToVerify(email);
+        navigate('/verify-otp');
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
   }
 
   return (
@@ -31,7 +79,7 @@ const Login = () => {
         <h2 className='text-logoColor font-sulphur font-semibold lg:text-[50px] md:text-[40px] sm:text-[30px] text-[20px] relative bottom-[40px] text-center'>Bite Bot™</h2>
         <p className='text-white font-inter text-[25px]'>Think Less, Eat More</p>
        </div>
-       <div className='w-1/2 bg-white flex flex-col justify-center items-center p-4 h-dvh'>
+      / <div className='w-1/2 bg-white flex flex-col justify-center items-center p-4 h-dvh'>
             {
             !isSignUp
             ?

@@ -1,6 +1,7 @@
 // apiClient.js
 
 import axios from 'axios';
+import { getAccessToken } from '../utils/cookies/cookie';
 
 // Create an Axios instance with default configuration
 const apiClient = axios.create({
@@ -12,27 +13,27 @@ const apiClient = axios.create({
   },
 });
 
-// Add a request interceptor
-// apiClient.interceptors.request.use(
-//   (config) => {
-//     // Add logic to modify the request, such as adding an Authorization token
-//     const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage or state
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     // Handle request errors
-//     return Promise.reject(error);
-//   }
-// );
+apiClient.interceptors.request.use(
+  (config) => {
+    // Add logic to modify the request, such as adding an Authorization token
+    const token = getAccessToken(); // Retrieve the token from localStorage or state
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    // Handle request errors
+    return Promise.reject(error);
+  }
+);
 
 // Add a response interceptor
 apiClient.interceptors.response.use(
   (response) => {
     // Any status code in the 2xx range triggers this function
-    return response.data; // Simplify the response structure for easier use
+    return {data: response.data, status: response.status};
+     // Simplify the response structure for easier use
   },
   (error) => {
     // Handle errors globally

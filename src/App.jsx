@@ -13,12 +13,14 @@ import Chat from './pages/Chat/chat.page';
 import TrackOrder from './pages/Track-Order/track-order.page';
 import Checkout from './pages/Checkout/checkout.page';
 import Orders from './pages/Orders/order.page';
+import VerifyOTP from './pages/Verify-OTP/verify-otp.page';
 function App() {
   return (
     <>
       <Routes>
         <Route element={<WithoutNavbarLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/verify-otp" element={<VerifyOTP/>} />
         </Route>
         <Route element={<NavbarLayout />}>
           <Route path="/" element={<Products />} />

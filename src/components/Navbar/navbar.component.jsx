@@ -11,6 +11,8 @@ import { BsStars } from 'react-icons/bs';
 import { useCartActions } from '../../context/cart-context/cart-context';
 
 import { useNavigate } from 'react-router-dom';
+import { getAccessToken, removeAccessToken } from '../../utils/cookies/cookie';
+import { nav } from 'framer-motion/client';
 
 const Navbar = ({ state }) => {
   const { togglePopup } = useCartActions();
@@ -80,7 +82,7 @@ const Navbar = ({ state }) => {
       },
     },
     {
-      text: 'Logout',
+      text: getAccessToken() ? 'Logout' : 'Login',
       image: (
         <AiOutlineLogout className="text-[25px] text-pink-500 group-hover:text-white transition-all duration-300" />
       ),
@@ -88,7 +90,11 @@ const Navbar = ({ state }) => {
       border: 'border-pink-500',
       hover_background: 'hover:bg-pink-500',
       onClick: () => {
-        alert('Logout');
+        const access_token = getAccessToken();
+        if (access_token){
+          removeAccessToken();
+        }
+        navigate('/login');
       },
     },
   ];
