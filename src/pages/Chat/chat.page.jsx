@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import Spinner from '../../components/Spinner/spinner.component';
 import ProductCard from '../../components/Product-Card/product-card.component';
 import product_data from '../../data/products';
+import { getAccessToken } from '../../utils/cookies/cookie';
+import { toast } from 'react-toastify';
+import apiClient from '../../lib/axios.lib';
+import { ENDPOINTS } from '../../utils/api/endpoints';
 
 const Chat = () => {
   const [input, setInput] = useState('');
@@ -15,16 +19,35 @@ const Chat = () => {
   };
 
   const handleKeyPress = async (e) => {
+    const access_token = getAccessToken();
+
+    if(!access_token) {
+      toast.error('Please login to continue');
+      return;
+    }
+
     if (e.key === 'Enter' && !loading) {
       setMessages([...messages, input]);
       setInput('');
       setLoading(true);
-
-      // TODO: Replace with actual API call when backend is ready
-      setTimeout(() => {
+      
+      try{
+        const res = await apiClient.post(ENDPOINTS.EMOTION_API,
+          {
+          text: input,
+          }
+        );
+        setProducts(res.data.data);
         setLoading(false);
-        setProducts(product_data);
-      }, 4000);
+      } 
+      catch(err){
+        setLoading(false);
+        console.log(err);
+        
+        toast.error('Error in processing the request');
+      }
+    
+      
     }
   };
 
