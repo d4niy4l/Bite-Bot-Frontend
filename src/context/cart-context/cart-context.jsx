@@ -6,6 +6,9 @@ const initial = {
   totalItems: 0,
   showPopup: false,
   paymentMethod: null,
+  address: '',
+  destination_latitude: '12345.12',
+  destination_longitude: '12345.323',
 };
 
 const CartContext = createContext(initial);
@@ -114,6 +117,16 @@ const cartReducer = (state, action) => {
         ...state,
         paymentMethod: payload,
       };
+
+    case 'SET_COORDINATES':
+      return {
+        ...state,
+        destination_latitude: payload.x,
+        destination_longitude: payload.y,
+      };
+
+    case 'SET_ADDRESS':
+      return { ...state, address: payload };
     default:
       return state;
   }
@@ -131,10 +144,27 @@ const CartProvider = ({ children }) => {
 
 const useCart = () => {
   const state = useContext(CartContext);
+  const {
+    cart,
+    total,
+    totalItems,
+    showPopup,
+    paymentMethod,
+    address,
+    destination_latitude,
+    destination_longitude,
+  } = state;
 
-  const { cart, total, totalItems, showPopup, paymentMethod } = state;
-
-  return { cart, total, totalItems, showPopup, paymentMethod };
+  return {
+    cart,
+    total,
+    totalItems,
+    showPopup,
+    paymentMethod,
+    address,
+    destination_latitude,
+    destination_longitude,
+  };
 };
 
 const useCartActions = () => {
