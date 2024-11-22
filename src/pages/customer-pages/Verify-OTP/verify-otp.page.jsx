@@ -4,9 +4,9 @@ import { useState, useContext, useEffect } from 'react';
 import { toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { EmailVerificationContext } from '../../context/verification-context/verification-context';
-import apiClient from '../../lib/axios.lib';
-import { ENDPOINTS } from '../../utils/api/endpoints';
+import { EmailVerificationContext } from '../../../context/verification-context/verification-context';
+import apiClient from '../../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
 
 
 const VerifyOTP = () => {

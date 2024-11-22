@@ -11,10 +11,10 @@ import { MdOutlineLunchDining } from 'react-icons/md';
 import { MdOutlineBorderAll } from 'react-icons/md';
 
 //temporary import for products
-import ProductCard from '../../components/Product-Card/product-card.component';
-import { ENDPOINTS } from '../../utils/api/endpoints';
-import apiClient from '../../lib/axios.lib';
-import Spinner from '../../components/Spinner/spinner.component';
+import ProductCard from '../../../components/Product-Card/product-card.component';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
+import apiClient from '../../../lib/axios.lib';
+import Spinner from '../../../components/Spinner/spinner.component';
 
 const Products = () => {
   const navigate = useNavigate();

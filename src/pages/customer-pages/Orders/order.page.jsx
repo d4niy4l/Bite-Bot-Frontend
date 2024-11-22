@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import orders from './../../data/orders.js';
-import FeedbackForm from '../../components/Feedback-Form/feedback-form.jsx';
+import orders from './../../../data/orders.js';
+import FeedbackForm from '../../../components/Feedback-Form/feedback-form.jsx';
 ; // Adjust the path as needed
 
 const Orders = () => {

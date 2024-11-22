@@ -1,12 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import Spinner from '../../components/Spinner/spinner.component';
-import ProductCard from '../../components/Product-Card/product-card.component';
-import product_data from '../../data/products';
-import { getAccessToken } from '../../utils/cookies/cookie';
+import ProductCard from '../../../components/Product-Card/product-card.component';
+import product_data from '../../../data/products';
+import { getAccessToken } from '../../../utils/cookies/cookie';
 import { toast } from 'react-toastify';
-import apiClient from '../../lib/axios.lib';
-import { ENDPOINTS } from '../../utils/api/endpoints';
+import apiClient from '../../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
 
 const Chat = () => {
   const [input, setInput] = useState('');

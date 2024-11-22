@@ -2,7 +2,7 @@
 import {
   useCart,
   useCartActions,
-} from '../../context/cart-context/cart-context';
+} from '../../../context/cart-context/cart-context';
 
 //icons
 import {
@@ -16,12 +16,12 @@ import {
 import { useState, useRef } from 'react';
 
 //components
-import LocationMarker from '../../components/Location-Marker/LocationMarker';
-import Select from '../../components/Input-Select/input-select.component';
+import LocationMarker from '../../../components/Location-Marker/LocationMarker';
+import Select from '../../../components/Input-Select/input-select.component';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 //data
-import { islamabadSectors } from '../../data/isb-sectors';
+import { islamabadSectors } from '../../../data/isb-sectors';
 
 const Checkout = () => {
   const { cart: cartItems } = useCart();

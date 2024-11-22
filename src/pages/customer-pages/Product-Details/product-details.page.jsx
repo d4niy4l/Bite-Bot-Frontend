@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import products from '../../data/products'; // Adjust the path to where your products data is located
+import products from '../../../data/products'; // Adjust the path to where your products data is located
 import { AiOutlineDollarCircle } from "react-icons/ai";
-import { useCartActions } from '../../context/cart-context/cart-context';
+import { useCartActions } from '../../../context/cart-context/cart-context';
 import {motion} from 'framer-motion';
 
 import { TiPlusOutline, TiMinusOutline } from "react-icons/ti";

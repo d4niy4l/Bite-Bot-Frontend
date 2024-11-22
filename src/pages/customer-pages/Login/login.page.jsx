@@ -3,11 +3,11 @@ import {useContext, useState} from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useNavigate } from 'react-router-dom';
-import { EmailVerificationContext } from '../../context/verification-context/verification-context';
-import { setAccessToken } from '../../utils/cookies/cookie';
+import { EmailVerificationContext } from '../../../context/verification-context/verification-context';
+import { setAccessToken } from '../../../utils/cookies/cookie';
 import { toast } from 'react-toastify';
-import { ENDPOINTS } from '../../utils/api/endpoints';
-import apiClient from '../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
+import apiClient from '../../../lib/axios.lib';
 
 const Login = () => {
   const {emailToVerify, setEmailToVerify} = useContext(EmailVerificationContext);

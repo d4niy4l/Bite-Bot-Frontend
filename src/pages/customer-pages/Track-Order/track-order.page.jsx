@@ -11,7 +11,7 @@ import { MdOutlineDeliveryDining } from "react-icons/md";
 
 //icon for delivered order
 import { TiHomeOutline } from "react-icons/ti";
-import Select from '../../components/Input-Select/input-select.component';
+import Select from '../../../components/Input-Select/input-select.component';
 
 const TrackOrder = () => {
   const [orderState, setOrderState] = useState(1); // 1: Received, 2: Preparing, 3: In Transit, 4: Delivered
