@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Toast from "../components/Toast-Container/toast-container";
 import { EmailVerificationProvider } from "../context/verification-context/verification-context";
 
-const WithoutNavbarLayout = () => {
+const PlaneLayout = () => {
   return (
     <div>
       <EmailVerificationProvider>
@@ -13,4 +13,4 @@ const WithoutNavbarLayout = () => {
   );
 }
 
-export default WithoutNavbarLayout;
+export default PlaneLayout;

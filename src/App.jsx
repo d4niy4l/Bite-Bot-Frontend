@@ -2,7 +2,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
 //layouts
-import WithoutNavbarLayout from './layouts/without-navbar-layout.component';
+import PlaneLayout from './layouts/plain-layout.component';
 import NavbarLayout from './layouts/navbar-layout.component';
 
 //pages
@@ -14,11 +14,13 @@ import TrackOrder from './pages/customer-pages/Track-Order/track-order.page';
 import Checkout from './pages/customer-pages/Checkout/checkout.page';
 import Orders from './pages/customer-pages/Orders/order.page';
 import VerifyOTP from './pages/customer-pages/Verify-OTP/verify-otp.page';
+import SidebarLayout from './layouts/sidebar-layout';
+import ManageProducts from './pages/admin-pages/Manage-Product/manage-products';
 function App() {
   return (
     <>
       <Routes>
-        <Route element={<WithoutNavbarLayout />}>
+        <Route element={<PlaneLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<VerifyOTP/>} />
         </Route>
@@ -29,6 +31,9 @@ function App() {
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
+        </Route>
+        <Route  element = {<SidebarLayout />} >
+          <Route path="/admin/products" element={<ManageProducts />} />
         </Route>
       </Routes>
     </>
