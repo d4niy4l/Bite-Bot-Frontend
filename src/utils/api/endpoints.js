@@ -12,4 +12,6 @@ export const ENDPOINTS = {
   RESEND_ORDER_OTP: '/order/resendOTP',
   GET_PAST_ORDERS: '/orders/get-by-customer',
   CREATE_FEEDBACK: '/feedback/order',
+  GET_ALL_FEEDBACKS: '/feedback/get/all',
+  FOLLOW_UP_EMAIL: '/feedback/send/follow-up-email',
 };
