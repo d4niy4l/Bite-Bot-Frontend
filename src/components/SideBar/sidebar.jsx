@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdDashboard, MdRestaurantMenu, MdPeople, MdMenu, MdClose } from 'react-icons/md';
+import { MdDashboard, MdRestaurantMenu, MdPeople, MdMenu, MdClose, MdFeedback } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import { getAccessToken, removeAccessToken } from '../../utils/cookies/cookie';
 import { AiOutlineLogout } from 'react-icons/ai';
@@ -24,6 +24,11 @@ const Sidebar = () => {
       text: 'Workers',
       icon: <MdPeople className="text-green-500 text-[40px] group-hover:text-white transition-all duration-300" />,
       onClick: () => navigate('/admin/workers'),
+    },
+    {
+      text: 'Feedbacks',
+      icon: <MdFeedback className="text-purple-500 text-[40px] group-hover:text-white transition-all duration-300" />,
+      onClick: () => navigate('/admin/feedbacks'),
     },
     {
       text: getAccessToken() ? 'Logout' : 'Login',

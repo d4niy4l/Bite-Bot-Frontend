@@ -12,6 +12,7 @@ const FeedbackForm = ({ order, onClose }) => {
     // Handle feedback submission logic here
     if(!feedback){
       toast.error('Please enter feedback');
+      return;
     }
     if(uploading){
       return;
