@@ -31,7 +31,7 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       setLoading(true);
       const response = await apiClient.get(ENDPOINTS.FETCH_PRODUCT + id);
-      setProduct(response);
+      setProduct(response.data);
       setLoading(false);
     };
     fetchProductData();
@@ -55,7 +55,7 @@ const ProductDetails = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
-
+  console.log('Product: ', product);
   return (
     <div className="max-w-[1450px] mx-auto w-full mt-[20px]">
       <motion.div
