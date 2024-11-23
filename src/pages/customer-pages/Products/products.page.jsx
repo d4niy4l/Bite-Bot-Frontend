@@ -25,8 +25,8 @@ const Products = () => {
     const fetchProducts = async () => {
       setLoading(true);
       const response = await apiClient.get(ENDPOINTS.FETCH_ALL_PRODUCTS);
-      console.log(response.data);
-      
+      console.log(response);
+
       setProducts(response.data);
       setLoading(false);
     };
@@ -99,9 +99,10 @@ const Products = () => {
       )}
       <div className="flex px-[20px]">
         <div className="w-full grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px] justify-items-center justify-center">
-          {products && products.map((product, index) => {
-            return <ProductCard product={product} key={index} />;
-          })}
+          {products &&
+            products.map((product, index) => {
+              return <ProductCard product={product} key={index} />;
+            })}
         </div>
       </div>
     </div>
