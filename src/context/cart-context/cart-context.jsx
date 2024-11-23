@@ -127,6 +127,19 @@ const cartReducer = (state, action) => {
 
     case 'SET_ADDRESS':
       return { ...state, address: payload };
+
+    case 'RESET_ORDER':
+      return {
+        cart: {},
+        total: 0,
+        totalItems: 0,
+        showPopup: false,
+        paymentMethod: null,
+        address: '',
+        destination_latitude: '',
+        destination_longitude: '',
+      };
+
     default:
       return state;
   }
@@ -193,6 +206,10 @@ const useCartActions = () => {
   const setCoordinates = (x, y) => {
     dispatch({ type: 'SET_COORDINATES', payload: { x, y } });
   };
+
+  const resetOrder = () => {
+    dispatch({ type: 'RESET_ORDER' });
+  };
   return {
     addToCart,
     removeFromCart,
@@ -204,6 +221,7 @@ const useCartActions = () => {
     setPaymentMethod,
     setAddress,
     setCoordinates,
+    resetOrder,
   };
 };
 

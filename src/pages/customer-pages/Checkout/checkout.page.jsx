@@ -44,6 +44,7 @@ const Checkout = () => {
     setPaymentMethod,
     setAddress,
     setCoordinates,
+    resetOrder,
   } = useCartActions();
 
   const navigate = useNavigate();
@@ -85,7 +86,6 @@ const Checkout = () => {
   const handleOTPChange = (e, index) => {
     const value = e.target.value;
     const match = /^[0-9]$/;
-
     if (/^\d$/.test(value)) {
       const newOTP = [...OTP];
       newOTP[index] = value;
@@ -126,7 +126,7 @@ const Checkout = () => {
   ];
 
   const onNextStepHandler = () => {
-    if (currentStep < steps.length) {
+    if (currentStep <= steps.length) {
       if (currentStep == 3) {
         const placeOrder = async () => {
           const lineItems = Object.values(cartItems).map((item) => {
@@ -163,6 +163,7 @@ const Checkout = () => {
 
           if (response.status == 200) {
             setLoading(false);
+            resetOrder();
             setCurrentStep(currentStep + 1);
           } else {
             setLoading(false);
@@ -431,9 +432,16 @@ const Checkout = () => {
                           onChange={(e) => handleOTPChange(e, index)}
                           ref={(el) => (inputRefs.current[index] = el)}
                           onKeyDown={(e) => {
-                            if (e.key === 'Backspace' && !e.target.value) {
-                              if (index > 0) {
-                                inputRefs.current[index - 1].focus();
+                            if (e.key === 'Backspace') {
+                              if (index >= 0) {
+                                setOTP((prev) => {
+                                  const newOTP = [...prev];
+                                  newOTP[index] = -1;
+                                  return newOTP;
+                                });
+                                if (index > 0) {
+                                  inputRefs.current[index - 1].focus();
+                                }
                               }
                             }
                           }}
