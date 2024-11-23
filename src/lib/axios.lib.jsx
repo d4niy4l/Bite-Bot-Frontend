@@ -1,7 +1,7 @@
 // apiClient.js
 
 import axios from 'axios';
-import { getAccessToken } from '../utils/cookies/cookie';
+import { getAccessToken, removeAccessToken } from '../utils/cookies/cookie';
 
 // Create an Axios instance with default configuration
 const apiClient = axios.create({
@@ -37,8 +37,10 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors globally
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 403) {
       // Optionally handle unauthorized access (e.g., redirect to login)
+      removeAccessToken();
+      window.location.href = '/login';
       console.error('API returned 401 Unauthorized.');
     }
     return Promise.reject(error); // Propagate the error to the calling function
