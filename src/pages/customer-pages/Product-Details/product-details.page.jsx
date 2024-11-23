@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 
 import { TiPlusOutline, TiMinusOutline } from 'react-icons/ti';
 import { toast } from 'react-toastify';
-import apiClient from '../../lib/axios.lib';
-import { ENDPOINTS } from '../../utils/api/endpoints';
-import Spinner from '../../components/Spinner/spinner.component';
+import apiClient from '../../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
+import Spinner from '../../../components/Spinner/spinner.component';
 
 const ProductDetails = () => {
   const { id } = useParams();

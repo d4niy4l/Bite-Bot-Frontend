@@ -2,7 +2,7 @@
 import {
   useCart,
   useCartActions,
-} from '../../context/cart-context/cart-context';
+} from '../../../context/cart-context/cart-context';
 
 //icons
 import {
@@ -15,17 +15,17 @@ import {
 //react imports
 import { useState, useRef, useEffect } from 'react';
 //components
-import LocationMarker from '../../components/Location-Marker/LocationMarker';
-import Select from '../../components/Input-Select/input-select.component';
+import LocationMarker from '../../../components/Location-Marker/LocationMarker';
+import Select from '../../../components/Input-Select/input-select.component';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 //data
-import { islamabadSectors } from '../../data/isb-sectors';
+import { islamabadSectors } from '../../../data/isb-sectors';
 
-import apiClient from '../../lib/axios.lib';
-import { ENDPOINTS } from '../../utils/api/endpoints';
+import apiClient from '../../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
 import { toast } from 'react-toastify';
-import { getAccessToken } from '../../utils/cookies/cookie';
+import { getAccessToken } from '../../../utils/cookies/cookie';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
