@@ -10,4 +10,6 @@ export const ENDPOINTS = {
   PLACE_ORDER: '/order/create',
   CONFIRM_ORDER: '/order/confirm',
   RESEND_ORDER_OTP: '/order/resendOTP',
+  GET_PAST_ORDERS: '/orders/get-by-customer',
+  CREATE_FEEDBACK: '/feedback/order',
 };
