@@ -5,6 +5,7 @@ const initial = {
   total: 0,
   totalItems: 0,
   showPopup: false,
+  paymentMethod: null,
 };
 
 const CartContext = createContext(initial);
@@ -106,6 +107,12 @@ const cartReducer = (state, action) => {
         showPopup: !state.showPopup,
       };
     }
+
+    case 'SET_PAYMENT_METHOD':
+      return {
+        ...state,
+        paymentMethod: payload,
+      };
     default:
       return state;
   }
@@ -144,6 +151,10 @@ const useCartActions = () => {
     dispatch({ type: 'DECREASE_QUANTITY', payload: id });
   const clearCart = () => dispatch({ type: 'CLEAR_CART' });
   const togglePopup = () => dispatch({ type: 'TOGGLE_POPUP' });
+
+  const setPaymentMethod = (paymentMethod) => {
+    dispatch(createAction({ type: 'SET_PAYMENT', payload: '' }));
+  };
   return {
     addToCart,
     removeFromCart,
