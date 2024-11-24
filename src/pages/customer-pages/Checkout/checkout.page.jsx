@@ -123,6 +123,7 @@ const Checkout = () => {
       title: 'Checkout',
       icon: FaRegCreditCard,
     },
+
   ];
 
   const onNextStepHandler = () => {
@@ -142,6 +143,7 @@ const Checkout = () => {
             address: address,
             paymentMethod: paymentMethod,
             lineItems: lineItems,
+            sector: sector,
           });
 
           if (response.status == 201) {
