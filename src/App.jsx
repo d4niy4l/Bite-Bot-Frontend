@@ -29,6 +29,10 @@ import ViewFeedback from './pages/admin-pages/View-Feedback/view-feedback.page';
 import ManageWorker from './pages/admin-pages/Manage-Worker/manage-worker';
 import AddWorker from './pages/admin-pages/Add-Worker/add-worker';
 import UpdateWorker from './pages/admin-pages/Update-Worker/update-worker.page';
+
+import ProtectedRoute from './components/Protected-Route/protected-route.component';
+import { USER_TYPES } from './data/userTypes';
+
 import Dashboard from './pages/admin-pages/Dashboard/dashboard.page';
 function App() {
   return (
@@ -38,7 +42,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
         </Route>
-        <Route element={<NavbarLayout />}>
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={[USER_TYPES.CUSTOMER]}>
+              <NavbarLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />\
           <Route path="/chat" element={<Chat />} />
@@ -46,16 +56,36 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
         </Route>
-        <Route path="/orders/prepare" element={<PrepareOrder />} />
-        <Route path="/orders/deliver" element={<DeliverOrder />} />
-
-        <Route element={<SidebarLayout />}>
-          <Route path="/admin/products" element={<ManageProducts />} />
-          <Route path="/admin/feedbacks" element={<ViewFeedback />} />
-          <Route path="/admin/workers" element={<ManageWorker />} />
+        <Route
+          path="/orders/prepare"
+          element={
+            <ProtectedRoute allowedRoles={[USER_TYPES.WORKER]}>
+              <PrepareOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders/deliver"
+          element={
+            <ProtectedRoute allowedRoles={[USER_TYPES.DELIVERY_PERSON]}>
+              <DeliverOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/"
+          element={
+            <ProtectedRoute allowedRoles={[USER_TYPES.ADMIN]}>
+              <SidebarLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="products" element={<ManageProducts />} />
+          <Route path="feedbacks" element={<ViewFeedback />} />
+          <Route path="workers" element={<ManageWorker />} />
           <Route element={<ManageWorker />}>
-            <Route path="/admin/workers/add" element={<AddWorker />} />
-            <Route path="/admin/workers/update" element={<UpdateWorker />} />
+            <Route path="workers/add" element={<AddWorker />} />
+            <Route path="workers/update" element={<UpdateWorker />} />
           </Route>
           <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>

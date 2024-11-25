@@ -148,6 +148,7 @@ const Checkout = () => {
 
           if (response.status == 201) {
             setLoading(false);
+
             setCurrentStep(currentStep + 1);
           } else {
             setLoading(false);
