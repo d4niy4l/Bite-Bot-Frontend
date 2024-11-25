@@ -39,8 +39,10 @@ apiClient.interceptors.response.use(
     // Handle errors globally
     if (error.response && error.response.status === 403) {
       // Optionally handle unauthorized access (e.g., redirect to login)
-      removeAccessToken();
-      window.location.href = '/login';
+
+      
+     // removeAccessToken();
+     // window.location.href = '/login';
       console.error('API returned 401 Unauthorized.');
     }
     return Promise.reject(error); // Propagate the error to the calling function

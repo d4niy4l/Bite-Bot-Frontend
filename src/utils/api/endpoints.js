@@ -14,4 +14,8 @@ export const ENDPOINTS = {
   CREATE_FEEDBACK: '/feedback/order',
   GET_ALL_FEEDBACKS: '/feedback/get/all',
   FOLLOW_UP_EMAIL: '/feedback/send/follow-up-email',
+  GET_TOP_SECTORS: '/insights/orders-by-sector', 
+  GET_REVENUE: '/insights/get-revenue',
+  GET_TOP_BUSINESS_HOURS: '/insights/top-business-hours',
+  GET_TOP_SOLD_ITEMS: '/insights/top-sold-items',
 };

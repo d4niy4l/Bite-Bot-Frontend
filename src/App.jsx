@@ -17,6 +17,7 @@ import VerifyOTP from './pages/customer-pages/Verify-OTP/verify-otp.page';
 import SidebarLayout from './layouts/sidebar-layout';
 import ManageProducts from './pages/admin-pages/Manage-Product/manage-products';
 import ViewFeedback from './pages/admin-pages/View-Feedback/view-feedback.page';
+import Dashboard from './pages/admin-pages/Dashboard/dashboard.page';
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
         <Route  element = {<SidebarLayout />} >
           <Route path="/admin/products" element={<ManageProducts />} />
           <Route path="/admin/feedbacks" element={<ViewFeedback />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>
       </Routes>
     </>
