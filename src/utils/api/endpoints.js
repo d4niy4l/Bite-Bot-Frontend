@@ -31,4 +31,5 @@ export const ENDPOINTS = {
 
   DELETE_PRODUCT: '/product/delete',
   UPDATE_PRODUCT: '/product/update',
+  CREATE_PRODUCT: '/product/create',
 };

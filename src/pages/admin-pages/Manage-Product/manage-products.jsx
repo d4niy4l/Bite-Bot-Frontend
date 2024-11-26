@@ -13,15 +13,19 @@ const ManageProducts = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
 
   const data = useContext(AdminContext);
-  console.log(data);
+
   const { setProducts, products, loading, setLoading } = data;
+
+  const [ingredient, setIngredient] = useState('');
 
   const [formState, setFormState] = useState({
     name: '',
     category: '',
     price: '',
-    type: '',
-    availability: false,
+    emotion: '',
+    description: '',
+    ingredients: [],
+    availability: true,
     image: null,
   });
 
@@ -35,6 +39,9 @@ const ManageProducts = () => {
     fetchAllProducts();
   }, []);
 
+  const handleIngredientChange = (e) => {
+    setIngredient(e.target.value);
+  };
   const handleAddProduct = () => {
     setIsAddModalOpen(true);
   };
@@ -45,9 +52,11 @@ const ManageProducts = () => {
       name: '',
       category: '',
       price: '',
-      type: '',
+      emotion: '',
       availability: false,
       image: null,
+      ingredients: [],
+      description: '',
     });
   };
 
@@ -58,8 +67,6 @@ const ManageProducts = () => {
       category: product.category,
       price: product.price,
       emotion: product.emotion,
-      availability: product.availability,
-      image: null,
     });
     setIsUpdateModalOpen(true);
   };
@@ -78,10 +85,6 @@ const ManageProducts = () => {
   };
 
   const handleDeleteProduct = async (productId) => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
     const response = await apiClient.post(ENDPOINTS.DELETE_PRODUCT, {
       productId: productId,
     });
@@ -105,6 +108,15 @@ const ManageProducts = () => {
           [name]: value,
         }));
       }
+    } else if (name == 'ingredient') {
+      if (ingredient == '') {
+        return;
+      }
+      setFormState((prevState) => ({
+        ...prevState,
+        ingredients: [...formState.ingredients, { name: ingredient }],
+      }));
+      setIngredient('');
     } else {
       setFormState((prevState) => ({
         ...prevState,
@@ -114,28 +126,50 @@ const ManageProducts = () => {
     }
   };
 
-  const handleAddProductSubmit = (e) => {
+  const handleAddProductSubmit = async (e) => {
     e.preventDefault();
     const newProduct = {
-      id: products.length + 1,
       name: formState.name,
       category: formState.category,
       price: parseFloat(formState.price),
       type: formState.type,
       availability: formState.availability,
-      imageLink: URL.createObjectURL(formState.image),
-      ingredients: [],
+      ingredients: formState.ingredients,
+      description: formState.description,
+      emotion: formState.emotion,
     };
-    setProducts([...products, newProduct]);
-    setIsAddModalOpen(false);
-    setFormState({
-      name: '',
-      category: '',
-      price: '',
-      type: '',
-      availability: false,
-      image: null,
+
+    const formData = new FormData();
+
+    // Append the image file
+    formData.append('image', formState.image);
+    // Append the product object as a JSON string
+    formData.append('product', JSON.stringify(newProduct));
+
+    console.log('MAKING API CALLS');
+    // Make the POST request
+    const response = await apiClient.post(ENDPOINTS.CREATE_PRODUCT, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Axios will handle boundary automatically
+      },
     });
+    if (response.status === 200) {
+      setProducts([...products, response.data.data]);
+      setIsAddModalOpen(false);
+      setFormState({
+        name: '',
+        category: '',
+        price: '',
+        type: '',
+        availability: false,
+        image: null,
+      });
+      toast('Product added successfully.');
+      setLoading(false);
+    } else {
+      toast('Failed to add product.');
+      setLoading(false);
+    }
   };
 
   const handleUpdateProductSubmit = async (e) => {
@@ -150,7 +184,6 @@ const ManageProducts = () => {
       category: formState.category,
       price: parseFloat(formState.price),
       emotion: formState.emotion,
-      availability: formState.availability,
     };
     const response = await apiClient.post(ENDPOINTS.UPDATE_PRODUCT, {
       ...updatedProduct,
@@ -183,7 +216,6 @@ const ManageProducts = () => {
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
-
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
@@ -213,7 +245,11 @@ const ManageProducts = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-[#1a1a1a] text-white rounded-lg shadow-lg p-8 w-full max-w-md">
             <h2 className="text-2xl mb-[16px]">Add Product</h2>
-            <form onSubmit={handleAddProductSubmit}>
+            <form
+              onSubmit={handleAddProductSubmit}
+              method="POST"
+              encType="multipart/form-data"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <div className="mb-4">
                   <label className="block text-sm font-bold mb-2">Name</label>
@@ -251,7 +287,9 @@ const ManageProducts = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-bold mb-2">Type</label>
+                  <label className="block text-sm font-bold mb-2">
+                    Emotion
+                  </label>
                   <input
                     type="text"
                     name="emotion"
@@ -261,7 +299,54 @@ const ManageProducts = () => {
                     required
                   />
                 </div>
-
+                <div className="mb-4 col-span-2">
+                  <label className="block text-sm font-bold mb-2">
+                    Description
+                  </label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={formState.description}
+                    onChange={handleInputChange}
+                    className="w-full p-2 bg-[#333333] text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-lg"
+                    required
+                  />
+                </div>
+                <div className="mb-4 col-span-2">
+                  <label className="block text-sm font-bold mb-2">
+                    Add Ingredient
+                  </label>
+                  <div className="flex flex-row gap-3">
+                    <input
+                      type="text"
+                      name="description"
+                      value={ingredient}
+                      onChange={handleIngredientChange}
+                      className="w-full p-2 bg-[#333333] text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      className="bg-logoColor p-3 rounded-xl"
+                      onClick={handleInputChange}
+                      name="ingredient"
+                    >
+                      Add
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {formState.ingredients.length > 0 &&
+                      formState.ingredients.map((ingredient, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className="px-2 py-1 rounded-xl border-2 border-logoColor"
+                          >
+                            {ingredient.name}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
                 <div className="mb-4 col-span-2">
                   <label className="block text-sm font-bold mb-2">
                     Upload Image
@@ -282,6 +367,7 @@ const ManageProducts = () => {
                     className="hidden"
                     required
                   />
+                  {formState.image ? formState.image.name : ''}
                 </div>
               </div>
               <div className="flex justify-end">
@@ -293,7 +379,8 @@ const ManageProducts = () => {
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  onClick={handleAddProductSubmit}
+                  type="button"
                   className="bg-logoColor text-white py-2 px-4 rounded-lg"
                 >
                   Add
