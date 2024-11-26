@@ -17,7 +17,12 @@ export const ENDPOINTS = {
   PREPARE_ORDER: '/order/prepare',
   COMPLETE_ORDER: '/order/complete',
   GET_PROCESSING_ORDERS: '/orders/get-processing-and-prepared',
+
+  /*  ADMIN */
   GET_ALL_WORKERS: '/workers/get/all',
+  CREATE_WORKER: '/worker/create',
+  DELETE_WORKER: '/worker/delete',
+  UPDATE_WORKER: '/worker/update',
   GET_TOP_SECTORS: '/insights/orders-by-sector',
   GET_REVENUE: '/insights/get-revenue',
   GET_TOP_BUSINESS_HOURS: '/insights/top-business-hours',

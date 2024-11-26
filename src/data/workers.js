@@ -1,13 +1,13 @@
 export const workers = [
   {
     id: 1,
-    name: 'John Doe',
-    position: 'Manager',
-    department: 'Sales',
     email: 'john.doe@example.com',
-    phone: '555-1234',
     salary: 75000,
+    position: 'Manager',
     joinDate: '2020-01-15',
+    name: 'John Doe',
+    department: 'Sales',
+    phone: '555-1234',
   },
   {
     id: 2,

@@ -17,7 +17,10 @@ const ManageProducts = () => {
       type: 'Type 1',
       availability: true,
       imageLink: 'https://via.placeholder.com/150',
-      ingredients: [{ id: 1, name: 'Ingredient 1' }, { id: 2, name: 'Ingredient 2' }],
+      ingredients: [
+        { id: 1, name: 'Ingredient 1' },
+        { id: 2, name: 'Ingredient 2' },
+      ],
     },
     {
       id: 2,
@@ -27,7 +30,10 @@ const ManageProducts = () => {
       type: 'Type 2',
       availability: false,
       imageLink: 'https://via.placeholder.com/150',
-      ingredients: [{ id: 1, name: 'Ingredient 1' }, { id: 2, name: 'Ingredient 2' }],
+      ingredients: [
+        { id: 1, name: 'Ingredient 1' },
+        { id: 2, name: 'Ingredient 2' },
+      ],
     },
   ]);
 
@@ -85,7 +91,7 @@ const ManageProducts = () => {
   };
 
   const handleDeleteProduct = (productId) => {
-    setProducts(products.filter(product => product.id !== productId));
+    setProducts(products.filter((product) => product.id !== productId));
   };
 
   const handleInputChange = (e) => {
@@ -93,15 +99,16 @@ const ManageProducts = () => {
     if (name === 'price') {
       const regex = /^\d*\.?\d*$/;
       if (regex.test(value)) {
-        setFormState(prevState => ({
+        setFormState((prevState) => ({
           ...prevState,
           [name]: value,
         }));
       }
     } else {
-      setFormState(prevState => ({
+      setFormState((prevState) => ({
         ...prevState,
-        [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
+        [name]:
+          type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
       }));
     }
   };
@@ -140,7 +147,11 @@ const ManageProducts = () => {
       type: formState.type,
       availability: formState.availability,
     };
-    setProducts(products.map(product => product.id === updatedProduct.id ? updatedProduct : product));
+    setProducts(
+      products.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      )
+    );
     setIsUpdateModalOpen(false);
     setCurrentProduct(null);
     setFormState({
@@ -160,7 +171,9 @@ const ManageProducts = () => {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold text-logoColor mb-[18px]">Manage Products</h1>
+        <h1 className="text-3xl font-bold text-logoColor mb-[18px]">
+          Manage Products
+        </h1>
         <button
           onClick={handleAddProduct}
           className="bg-logoColor text-white py-2 px-4 rounded-lg flex items-center gap-2"
@@ -170,7 +183,7 @@ const ManageProducts = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.map(product => (
+        {products.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -197,7 +210,9 @@ const ManageProducts = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-bold mb-2">Category</label>
+                  <label className="block text-sm font-bold mb-2">
+                    Category
+                  </label>
                   <input
                     type="text"
                     name="category"
@@ -229,9 +244,11 @@ const ManageProducts = () => {
                     required
                   />
                 </div>
-               
+
                 <div className="mb-4 col-span-2">
-                  <label className="block text-sm font-bold mb-2">Upload Image</label>
+                  <label className="block text-sm font-bold mb-2">
+                    Upload Image
+                  </label>
                   <button
                     type="button"
                     onClick={handleFileInputClick}
@@ -287,7 +304,9 @@ const ManageProducts = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-bold mb-2">Category</label>
+                  <label className="block text-sm font-bold mb-2">
+                    Category
+                  </label>
                   <input
                     type="text"
                     name="category"
@@ -319,7 +338,6 @@ const ManageProducts = () => {
                     required
                   />
                 </div>
-               
               </div>
               <div className="flex justify-end">
                 <button

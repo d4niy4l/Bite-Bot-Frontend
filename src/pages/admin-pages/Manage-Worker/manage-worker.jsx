@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ProductCard from './components/Product-Card/ProductCard'; // Adjust the path as needed
@@ -9,10 +9,21 @@ import { TbEdit } from 'react-icons/tb';
 import { MdDelete } from 'react-icons/md';
 import apiClient from '../../../lib/axios.lib';
 import { ENDPOINTS } from '../../../utils/api/endpoints';
+import { AdminContext } from '../../../context/admin-context/admin.context';
+import { toast } from 'react-toastify';
+import Spinner from '../../../components/Spinner/spinner.component';
+
 const ManageWorker = () => {
   const navigate = useNavigate();
-
-  const [workers, setWorkers] = useState([]);
+  const data = useContext(AdminContext);
+  const {
+    setWorkers,
+    workers,
+    loading,
+    setLoading,
+    currentWorker,
+    setCurrentWorker,
+  } = data;
 
   useEffect(() => {
     const fetchWorkers = async () => {
@@ -23,11 +34,37 @@ const ManageWorker = () => {
     };
     fetchWorkers();
   }, []);
+
   const onAddHandler = () => {
     navigate('/admin/workers/add');
   };
 
+  const onDeleteHandler = async (workerId) => {
+    setLoading(true);
+    const response = await apiClient.post(ENDPOINTS.DELETE_WORKER, {
+      workerId: workerId,
+    });
+    if (response.status === 200) {
+      if (response.data.data == 'WORKER_DELETED') {
+        setLoading(false);
+        const updatedWorkers = workers.filter(
+          (worker) => worker.workerId !== workerId
+        );
+        setWorkers(updatedWorkers);
+      } else {
+        setLoading(false);
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    } else {
+      setLoading(false);
+      toast.error('Failed to delete worker');
+    }
+  };
+
   const handleModalBounds = () => {
+    if (loading) {
+      return;
+    }
     navigate('/admin/workers');
   };
   const location = useLocation();
@@ -38,6 +75,14 @@ const ManageWorker = () => {
 
   return (
     <div className="p-4 relative">
+      {loading && (
+        <>
+          <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center z-10"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[11]">
+            <Spinner />
+          </div>
+        </>
+      )}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold text-logoColor mb-[18px] font-sulphur">
           Manage Workers
@@ -93,10 +138,19 @@ const ManageWorker = () => {
                 {worker.joinDate}
               </div>
               <div className="mx-auto hidden group-hover:flex flex-row gap-3">
-                <div>
+                <div
+                  onClick={() => {
+                    setCurrentWorker(worker.workerId);
+                    navigate('/admin/workers/update');
+                  }}
+                >
                   <TbEdit className="text-2xl hover:text-logoColor" />
                 </div>
-                <div>
+                <div
+                  onClick={() => {
+                    onDeleteHandler(worker.workerId);
+                  }}
+                >
                   <MdDelete className="text-2xl hover:text-logoColor" />
                 </div>
               </div>
@@ -116,7 +170,13 @@ const ManageWorker = () => {
               exit={{ opacity: 0 }}
               className="fixed border-2 border-logoColor top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2] bg-[#1e1e1e] p-4 rounded-xl"
             >
-              <Outlet />
+              <Outlet
+                context={{
+                  worker: currentWorker,
+                  setWorkers,
+                  workers,
+                }}
+              />
             </motion.div>{' '}
           </>
         )}
