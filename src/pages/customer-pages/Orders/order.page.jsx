@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FaCalendar, FaChevronCircleRight, FaCreditCard, FaDollarSign, FaInfoCircle, FaMapMarker } from 'react-icons/fa';
+import {
+  FaCalendar,
+  FaChevronCircleRight,
+  FaCreditCard,
+  FaDollarSign,
+  FaInfoCircle,
+  FaMapMarker,
+} from 'react-icons/fa';
 import FeedbackForm from '../../../components/Feedback-Form/feedback-form.jsx'; // Adjust the path as needed
 import apiClient from '../../../lib/axios.lib.jsx';
 import { ENDPOINTS } from '../../../utils/api/endpoints.js';
@@ -30,10 +37,18 @@ const Orders = () => {
 
   return (
     <div className="max-w-[1300px] h-auto font-inter flex flex-col mx-auto mt-[40px] p-6 bg-[#1a1a1a] rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold text-logoColor mb-6 text-center">Past Orders</h1>
+      <h1 className="text-3xl font-bold text-logoColor mb-6 text-center">
+        Past Orders
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-white overflow-y-auto">
         {orders.map((order) => {
-          const { order_id, payment_method, order_status, total_price, order_date } = order;
+          const {
+            order_id,
+            payment_method,
+            order_status,
+            total_price,
+            order_date,
+          } = order;
           return (
             <div
               key={order_id}
@@ -49,13 +64,22 @@ const Orders = () => {
                   <FaCreditCard className="text-logoColor" />
                   <strong>Payment Method:</strong> {payment_method}
                 </span>
-                <span className={`text-[15px] mb-1 flex items-center gap-2 ${order_status === 'Cancelled' ? 'text-red-500' : order_status === 'Completed' ? 'text-green-500' : 'text-yellow-500'}`}>
+                <span
+                  className={`text-[15px] mb-1 flex items-center gap-2 ${
+                    order_status === 'Cancelled'
+                      ? 'text-red-500'
+                      : order_status === 'Completed'
+                      ? 'text-green-500'
+                      : 'text-yellow-500'
+                  }`}
+                >
                   <FaInfoCircle className="text-logoColor" />
                   <strong>Status:</strong> {order_status}
                 </span>
                 <span className="text-[15px] mb-1 flex items-center gap-2">
                   <FaCalendar className="text-logoColor" />
-                  <strong>Order Date:</strong> {new Date(order_date).toLocaleDateString()}
+                  <strong>Order Date:</strong>{' '}
+                  {new Date(order_date).toLocaleDateString()}
                 </span>
                 <span className="text-[15px] flex items-center gap-2">
                   <FaDollarSign className="text-logoColor" />

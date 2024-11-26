@@ -17,6 +17,7 @@ export const ENDPOINTS = {
   PREPARE_ORDER: '/order/prepare',
   COMPLETE_ORDER: '/order/complete',
   GET_PROCESSING_ORDERS: '/orders/get-processing-and-prepared',
+  GET_DELIVERED_ORDERS: '/orders/get-prepared-orders',
 
   /*  ADMIN */
   GET_ALL_WORKERS: '/workers/get/all',
@@ -32,4 +33,7 @@ export const ENDPOINTS = {
   DELETE_PRODUCT: '/product/delete',
   UPDATE_PRODUCT: '/product/update',
   CREATE_PRODUCT: '/product/create',
+
+  MARK_DELIVERED: '/order/delivered',
+  DELIVER_FAILED: '/order/deliver-failed',
 };

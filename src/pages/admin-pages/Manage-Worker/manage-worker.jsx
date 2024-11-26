@@ -97,7 +97,7 @@ const ManageWorker = () => {
           <div>Add Worker</div>
         </button>
       </div>
-      <div className="text-logoColor grid grid-cols-6 text-center font-sulphur font-bold text-xl mb-4">
+      <div className="text-logoColor grid grid-cols-8 text-center font-sulphur font-bold text-xl mb-4">
         <div className="whitespace-nowrap text-ellipsis overflow-hidden">
           Worker ID
         </div>
@@ -113,6 +113,12 @@ const ManageWorker = () => {
         <div className="whitespace-nowrap text-ellipsis overflow-hidden">
           Join Date
         </div>
+        <div className="whitespace-nowrap text-ellipsis overflow-hidden">
+          Type
+        </div>
+        <div className="whitespace-nowrap text-ellipsis overflow-hidden">
+          Vehicle
+        </div>
       </div>
       <hr className="border-logoColor mb-4" />
       {workers.length > 0 &&
@@ -120,7 +126,7 @@ const ManageWorker = () => {
           return (
             <div
               key={worker.workerId}
-              className="group text-white grid grid-cols-6 text-center text-lg cursor-pointer group border-2 border-[#1a1a1a] hover:border-logoColor rounded-xl p-4 mb-4 transition-all duration-300"
+              className="group text-white grid grid-cols-8 text-center text-lg cursor-pointer group border-2 border-[#1a1a1a] hover:border-logoColor rounded-xl p-4 mb-4 transition-all duration-300"
             >
               <div className="whitespace-nowrap text-ellipsis overflow-hidden">
                 {worker.workerId}
@@ -137,6 +143,13 @@ const ManageWorker = () => {
               <div className="whitespace-nowrap text-ellipsis overflow-hidden">
                 {worker.joinDate}
               </div>
+              <div className="whitespace-nowrap text-ellipsis overflow-hidden">
+                {worker.role}
+              </div>
+              <div className="whitespace-nowrap text-ellipsis overflow-hidden">
+                {worker.vehicle ? worker.vehicle : ''}
+              </div>
+
               <div className="mx-auto hidden group-hover:flex flex-row gap-3">
                 <div
                   onClick={() => {

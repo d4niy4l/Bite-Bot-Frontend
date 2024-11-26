@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import apiClient from '../../../lib/axios.lib';
 import Spinner from '../../../components/Spinner/spinner.component';
 import { ENDPOINTS } from '../../../utils/api/endpoints';
+import { USER_TYPES } from '../../../data/userTypes';
 
 const INIT_STATE = {
   email: '',
@@ -31,7 +32,7 @@ const UpdateWorker = () => {
     return;
   }
 
-  const { email, password, position, salary } = formData;
+  const { email, password, position, salary, vehicle, role } = formData;
 
   const onUpdateHandler = async () => {
     if (loading) {
@@ -52,6 +53,10 @@ const UpdateWorker = () => {
             email: formData.email,
             salary: formData.salary,
             position: formData.position,
+            vehicle:
+              w.role == USER_TYPES.DELIVERY_PERSON
+                ? formData.vehicle
+                : w.vehicle,
           };
         }
         return w;
@@ -71,6 +76,7 @@ const UpdateWorker = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  console.log(worker);
   return (
     <>
       {loading && (
@@ -146,6 +152,18 @@ const UpdateWorker = () => {
               name="salary"
             />
           </div>
+          {role == USER_TYPES.DELIVERY_PERSON && (
+            <div className="flex flex-col gap-2">
+              <label className="text-logoColor text-xl">Vehicle</label>
+              <input
+                type="text"
+                className="p-[6px] bg-transparent border-white text-logoColor border-transparent focus:border-logoColor border-[2px] focus:outline-none rounded-xl"
+                value={vehicle}
+                onChange={onChangeHandler}
+                name="vehicle"
+              />
+            </div>
+          )}
           <button
             onClick={onUpdateHandler}
             className="group w-full flex flex-row gap-4 p-3 justify-center items-center hover:bg-logoColor bg-inherit text-white py-2 mt-4 rounded-xl border-2 border-logoColor hover:text-black transition-all duration-300"

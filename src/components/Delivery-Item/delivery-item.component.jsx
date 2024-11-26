@@ -2,7 +2,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const DeliveryItem = ({ orderItem }) => {
+const DeliveryItem = ({ orderItem, onMarkHandler, onDeliverOrder }) => {
   const colors = [
     'bg-red-500',
     'bg-blue-500',
@@ -12,6 +12,7 @@ const DeliveryItem = ({ orderItem }) => {
     'bg-pink-500',
   ];
   const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div className=" flex flex-col gap-4 scrollbar-thin bg-[#1E1E1E] px-2 py-4 rounded-xl">
       <div className="flex flex-row w-full justify-between items-center">
@@ -47,10 +48,16 @@ const DeliveryItem = ({ orderItem }) => {
           </div>
         </div>
         <div className="flex flex-row justify-center items-center gap-3 w-[35%]">
-          <button className="w-full hover:bg-logoColor bg-inherit text-white py-2 rounded-lg border-2 border-logoColor hover:text-black transition-all duration-300">
+          <button
+            onClick={onDeliverOrder}
+            className="w-full hover:bg-logoColor bg-inherit text-white py-2 rounded-lg border-2 border-logoColor hover:text-black transition-all duration-300"
+          >
             Report Issue
           </button>
-          <button className="w-full hover:bg-logoColor bg-inherit text-white py-2 rounded-lg border-2 border-logoColor hover:text-black transition-all duration-300">
+          <button
+            onClick={onMarkHandler}
+            className="w-full hover:bg-logoColor bg-inherit text-white py-2 rounded-lg border-2 border-logoColor hover:text-black transition-all duration-300"
+          >
             Mark as delivered
           </button>
         </div>

@@ -10,12 +10,15 @@ import apiClient from '../../../lib/axios.lib';
 import { ENDPOINTS } from '../../../utils/api/endpoints';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../../../context/admin-context/admin.context';
+import { USER_TYPES } from '../../../data/userTypes';
 
 const INIT_STATE = {
   email: '',
   password: '',
   salary: 0,
   position: '',
+  type: 'WORKER',
+  vehicle: '',
 };
 
 const AddWorker = () => {
@@ -36,17 +39,21 @@ const AddWorker = () => {
       toast.error('Failed to add worker');
     }
   };
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(INIT_STATE);
 
   const { email, password, salary, position } = formData;
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-
-    setFormData({ ...formData, [name]: value });
+    if (name == 'type' && value == USER_TYPES.WORKER) {
+      setFormData({ ...formData, vehicle: '', [name]: value });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
   const [loading, setLoading] = useState(false);
 
+  console.log(formData);
   return (
     <>
       {loading && (
@@ -121,6 +128,46 @@ const AddWorker = () => {
               value={salary}
             />
           </div>
+          <div className="flex flex-row justify-around">
+            <div className="flex flex-row items-center gap-2">
+              <input
+                type="button"
+                className={`cursor-pointer ${
+                  formData.type == USER_TYPES.WORKER
+                    ? 'bg-logoColor text-black '
+                    : ''
+                } p-[6px]  w-[160px] border-white focus:border-logoColor border-[2px] focus:outline-none rounded-xl`}
+                name="type"
+                value={USER_TYPES.WORKER}
+                onClick={onChangeHandler}
+              />
+            </div>
+            <div className="flex flex-row items-center gap-2">
+              <input
+                type="button"
+                className={`cursor-pointer ${
+                  formData.type == USER_TYPES.DELIVERY_PERSON
+                    ? 'bg-logoColor text-black '
+                    : ''
+                } p-[6px] w-[160px] border-white focus:border-logoColor border-[2px] focus:outline-none rounded-xl`}
+                name="type"
+                value={USER_TYPES.DELIVERY_PERSON}
+                onClick={onChangeHandler}
+              />
+            </div>
+          </div>
+          {formData.type === USER_TYPES.DELIVERY_PERSON && (
+            <div className="flex flex-col gap-2">
+              <label className="text-logoColor text-xl">Vehicle</label>
+              <input
+                type="text"
+                className="p-[6px] bg-transparent border-white text-logoColor border-transparent focus:border-logoColor border-[2px] focus:outline-none rounded-xl"
+                name="vehicle"
+                onChange={onChangeHandler}
+                value={formData.vehicle}
+              />
+            </div>
+          )}
           <button
             onClick={onAddHandler}
             className="group w-full flex flex-row gap-4 p-3 justify-center items-center hover:bg-logoColor bg-inherit text-white py-2 mt-4 rounded-xl border-2 border-logoColor hover:text-black transition-all duration-300"
