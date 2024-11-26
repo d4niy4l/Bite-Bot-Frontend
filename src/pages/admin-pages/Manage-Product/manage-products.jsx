@@ -1,41 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ProductCard from './components/Product-Card/ProductCard'; // Adjust the path as needed
+import apiClient from '../../../lib/axios.lib';
+import { ENDPOINTS } from '../../../utils/api/endpoints';
+import { AdminContext } from '../../../context/admin-context/admin.context';
 
 const ManageProducts = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [products, setProducts] = useState([
-    // Sample products
-    {
-      id: 1,
-      name: 'Product 1',
-      category: 'Category 1',
-      price: 10,
-      type: 'Type 1',
-      availability: true,
-      imageLink: 'https://via.placeholder.com/150',
-      ingredients: [
-        { id: 1, name: 'Ingredient 1' },
-        { id: 2, name: 'Ingredient 2' },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      category: 'Category 2',
-      price: 20,
-      type: 'Type 2',
-      availability: false,
-      imageLink: 'https://via.placeholder.com/150',
-      ingredients: [
-        { id: 1, name: 'Ingredient 1' },
-        { id: 2, name: 'Ingredient 2' },
-      ],
-    },
-  ]);
+
+  const data = useContext(AdminContext);
+  console.log(data);
+  const { setProducts, products } = data;
 
   const [formState, setFormState] = useState({
     name: '',
@@ -47,6 +25,14 @@ const ManageProducts = () => {
   });
 
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      const response = await apiClient.get(ENDPOINTS.FETCH_ALL_PRODUCTS);
+      setProducts(response.data);
+    };
+    fetchAllProducts();
+  }, []);
 
   const handleAddProduct = () => {
     setIsAddModalOpen(true);
@@ -183,14 +169,15 @@ const ManageProducts = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onUpdate={handleUpdateProduct}
-            onDelete={handleDeleteProduct}
-          />
-        ))}
+        {products &&
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onUpdate={handleUpdateProduct}
+              onDelete={handleDeleteProduct}
+            />
+          ))}
       </div>
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

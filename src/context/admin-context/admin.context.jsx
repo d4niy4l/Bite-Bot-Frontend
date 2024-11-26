@@ -16,6 +16,7 @@ const ACTION_TYPES = {
   ADD_WORKER: 'ADD_WORKER',
   SET_LOADING: 'SET_LOADING',
   SET_CURRENT_WORKER: 'SET_CURRENT_WORKER',
+  SET_PRODUCTS: 'SET_PRODUCTS',
 };
 
 const adminReducer = (state, action) => {
@@ -32,6 +33,10 @@ const adminReducer = (state, action) => {
 
     case ACTION_TYPES.SET_CURRENT_WORKER:
       return { ...state, currentWorker: payload };
+
+    case ACTION_TYPES.SET_PRODUCTS:
+      return { ...state, products: payload };
+
     default:
       console.log('ACTION TYPE MISMATCH IN ADMIN REDUCER ', type);
       return { ...state };
@@ -57,12 +62,18 @@ export const AdminProvider = ({ children }) => {
     const worker = state.workers.find((worker) => worker.workerId === workerId);
     dispatch(createAction(ACTION_TYPES.SET_CURRENT_WORKER, worker));
   };
+
+  const setProducts = (products) => {
+    dispatch(createAction(ACTION_TYPES.SET_PRODUCTS, products));
+  };
+
   const newValue = {
     ...state,
     setWorkers,
     addWorker,
     setLoading,
     setCurrentWorker,
+    setProducts,
   };
   return (
     <AdminContext.Provider value={newValue}>{children}</AdminContext.Provider>
