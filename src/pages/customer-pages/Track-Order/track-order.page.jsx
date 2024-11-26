@@ -19,7 +19,7 @@ import LoadingScreen from '../../../components/Loading-Screen/loading-screen.com
 const ORDER_STATES = {
   PROCESSING: 'PROCESSING',
   PREPARING: 'PREPARING',
-  DISPATCHED: 'DISPATCHED',
+  DISPATCHED: 'COMPLETED',
   DELIVERED: 'DELIVERED',
 };
 
