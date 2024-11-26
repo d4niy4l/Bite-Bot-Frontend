@@ -120,7 +120,7 @@ const Chat = () => {
       </div>
     </div>
     {
-    products.length > 0 && 
+    products && products.length > 0 && 
     <div className='max-w-[1340px] mx-auto my-[30px]'>
       {<motion.h1 
       initial={{ opacity: 0, y: 20}}

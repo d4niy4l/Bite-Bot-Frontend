@@ -5,7 +5,7 @@ export const ENDPOINTS = {
   LOGIN: '/auth/login',
   VERIFY_OTP: '/register/verify-otp',
   RESEND_OTP: '/register/resend-otp',
-  EMOTION_API: '/recommendation/emotional',
+  EMOTION_API: '/recommendation/recommend',
   ORDER_TRACKING_API: '/orders/track',
   PLACE_ORDER: '/order/create',
   CONFIRM_ORDER: '/order/confirm',
