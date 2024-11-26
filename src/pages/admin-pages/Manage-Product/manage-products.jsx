@@ -5,6 +5,7 @@ import ProductCard from './components/Product-Card/ProductCard'; // Adjust the p
 import apiClient from '../../../lib/axios.lib';
 import { ENDPOINTS } from '../../../utils/api/endpoints';
 import { AdminContext } from '../../../context/admin-context/admin.context';
+import { toast } from 'react-toastify';
 
 const ManageProducts = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -13,7 +14,7 @@ const ManageProducts = () => {
 
   const data = useContext(AdminContext);
   console.log(data);
-  const { setProducts, products } = data;
+  const { setProducts, products, loading, setLoading } = data;
 
   const [formState, setFormState] = useState({
     name: '',
@@ -56,7 +57,7 @@ const ManageProducts = () => {
       name: product.name,
       category: product.category,
       price: product.price,
-      type: product.type,
+      emotion: product.emotion,
       availability: product.availability,
       image: null,
     });
@@ -76,8 +77,22 @@ const ManageProducts = () => {
     });
   };
 
-  const handleDeleteProduct = (productId) => {
-    setProducts(products.filter((product) => product.id !== productId));
+  const handleDeleteProduct = async (productId) => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    const response = await apiClient.post(ENDPOINTS.DELETE_PRODUCT, {
+      productId: productId,
+    });
+    if (response.status === 200 && response.data.data === 'PRODUCT_DELETED') {
+      setLoading(false);
+      toast('Product Deleted Successfully');
+      setProducts(products.filter((product) => product.id !== productId));
+    } else {
+      setLoading(false);
+      toast('An unexpected error occurred while deleting the product');
+    }
   };
 
   const handleInputChange = (e) => {
@@ -123,31 +138,46 @@ const ManageProducts = () => {
     });
   };
 
-  const handleUpdateProductSubmit = (e) => {
+  const handleUpdateProductSubmit = async (e) => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
     e.preventDefault();
     const updatedProduct = {
       ...currentProduct,
       name: formState.name,
       category: formState.category,
       price: parseFloat(formState.price),
-      type: formState.type,
+      emotion: formState.emotion,
       availability: formState.availability,
     };
-    setProducts(
-      products.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
-    setIsUpdateModalOpen(false);
-    setCurrentProduct(null);
-    setFormState({
-      name: '',
-      category: '',
-      price: '',
-      type: '',
-      availability: false,
-      image: null,
+    const response = await apiClient.post(ENDPOINTS.UPDATE_PRODUCT, {
+      ...updatedProduct,
     });
+    if (response.status === 200 && response.data.data === 'PRODUCT_UPDATED') {
+      toast('Product Updated Successfully');
+      setProducts(
+        products.map((product) =>
+          product.id === updatedProduct.id ? updatedProduct : product
+        )
+      );
+
+      setIsUpdateModalOpen(false);
+      setCurrentProduct(null);
+      setFormState({
+        name: '',
+        category: '',
+        price: '',
+        type: '',
+        availability: false,
+        image: null,
+      });
+      setLoading(false);
+    } else {
+      setLoading(false);
+      toast('An unexpected error occurred while updating the product');
+    }
   };
 
   const handleFileInputClick = () => {
@@ -224,8 +254,8 @@ const ManageProducts = () => {
                   <label className="block text-sm font-bold mb-2">Type</label>
                   <input
                     type="text"
-                    name="type"
-                    value={formState.type}
+                    name="emotion"
+                    value={formState.emotion}
                     onChange={handleInputChange}
                     className="w-full p-2 bg-[#333333] text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-lg"
                     required
@@ -315,11 +345,13 @@ const ManageProducts = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-bold mb-2">Type</label>
+                  <label className="block text-sm font-bold mb-2">
+                    emotion
+                  </label>
                   <input
                     type="text"
-                    name="type"
-                    value={formState.type}
+                    name="emotion"
+                    value={formState.emotion}
                     onChange={handleInputChange}
                     className="w-full p-2 bg-[#333333] text-white border-[#1d1d1d] focus:border-themegreen border-[2px] focus:outline-none rounded-lg"
                     required
