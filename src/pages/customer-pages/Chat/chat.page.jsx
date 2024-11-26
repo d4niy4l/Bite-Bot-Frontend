@@ -12,6 +12,16 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [type, setType] = useState('emotional');
+
+  const ToggleTypeChange = () => {
+    if(type === 'emotional'){
+      setType('nutritional');
+    }
+    else{
+      setType('emotional');
+    }
+  }
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -34,6 +44,7 @@ const Chat = () => {
         const res = await apiClient.post(ENDPOINTS.EMOTION_API,
           {
           text: input,
+          type: type
           }
         );
         setProducts(res.data.data);
@@ -56,6 +67,11 @@ const Chat = () => {
       <div className='rounded-xl px-[30px] py-[20px] w-full'>
         <h1 className='text-[32px] text-logoColor font-bold font-inter mb-2'>Can't Decide what to eat?</h1>
         <h2 className='text-[20px] font-inter font-medium mt-[10px] mb-[20px]'>Let BiteBot decide so that You can Focus on Eating!</h2>
+        <button 
+        onClick={ToggleTypeChange} 
+        className='bg-logoColor my-[10px] text-white font-inter font-bold py-2 px-4 rounded-lg'>
+          Change Recommendation type to {type === 'emotional' ? 'Nutritional' : 'Emotional'}
+        </button>
         <div className="w-full bg-black rounded-xl shadow-xl p-4 border-2 border-logoColor items-center">
           <div className="h-64 overflow-y-auto p-2">
             {messages.map((msg, index) => (
